@@ -232,7 +232,8 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_SelectAllTrucks, "SelectAllTrucks"},
 	{kf_SetDroidOrderStop, "SetDroidOrderStop"},
 	{kf_SelectAllArmedVTOLs, "SelectAllArmedVTOLs"},
-	{kf_Cheat_AddPower, "AddPower"}
+	{kf_Cheat_AddPower, "Cheat_AddPower"},
+	{kf_Cheat_FinishResearch, "Cheat_FinishResearch"}
 };
 
 KeyMapSaveEntry const *keymapEntryByFunction(void (*function)())
@@ -461,6 +462,7 @@ void keyInitMappings(bool bForceDefaults)
 
 	// Cheat key maps
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Cheat_AddPower, N_("Add power"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Cheat_FinishResearch, N_("Finish research"));
 
 	saveKeyMap();	// save out the default key mappings.
 }

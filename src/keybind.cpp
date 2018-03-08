@@ -2765,8 +2765,47 @@ bool playerCanCheat()
 
 void kf_Cheat_AddPower()
 {
-	if (playerCanCheat())
+	if (!playerCanCheat())
 	{
-		giftPower(selectedPlayer, selectedPlayer, 1000, true);
+		return;
+	}
+
+	giftPower(selectedPlayer, selectedPlayer, 1000, true);
+}
+
+void kf_Cheat_FinishResearch()
+{
+	if (!playerCanCheat())
+	{
+		return;
+	}
+
+	STRUCTURE	*psCurr;
+
+	for (psCurr = interfaceStructList(); psCurr; psCurr = psCurr->psNext)
+	{
+		if (psCurr->pStructureType->type == REF_RESEARCH)
+		{
+			BASE_STATS	*pSubject = nullptr;
+
+			// find out what we are researching here
+			pSubject = ((RESEARCH_FACILITY *)psCurr->pFunctionality)->psSubject;
+
+			if (pSubject)
+			{
+				int rindex = ((RESEARCH *)pSubject)->index;
+				if (bMultiMessages)
+				{
+					SendResearch(selectedPlayer, rindex, true);
+					// Wait for our message before doing anything.
+				}
+				else
+				{
+					researchResult(rindex, selectedPlayer, true, psCurr, true);
+				}
+
+				intResearchFinished(psCurr);
+			}
+		}
 	}
 }
