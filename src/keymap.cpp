@@ -234,11 +234,7 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_SelectAllArmedVTOLs, "SelectAllArmedVTOLs"},
 	{kf_Cheat_AddPower, "Cheat_AddPower"},
 	{kf_Cheat_FinishResearch, "Cheat_FinishResearch"},
-	{kf_Cheat_Destroy, "Cheat_Destroy"},
-	{kf_Cheat_Clone, "Cheat_Clone"},
-	{kf_Cheat_Clone_More, "Cheat_Clone_More"},
-	{kf_Cheat_God, "Cheat_God"},
-	{kf_Cheat_FinishBuilding, "Cheat_FinishBuilding"}
+	{kf_Cheat_Destroy, "Cheat_Destroy"}
 };
 
 KeyMapSaveEntry const *keymapEntryByFunction(void (*function)())
@@ -469,10 +465,6 @@ void keyInitMappings(bool bForceDefaults)
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Cheat_AddPower, N_("Add power"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Cheat_FinishResearch, N_("Finish research"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Cheat_Destroy, N_("Destroy"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_C, KEYMAP_PRESSED, kf_Cheat_Clone, N_("Clone selected units"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_V, KEYMAP_PRESSED, kf_Cheat_Clone_More, N_("Clone selected units more"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_G, KEYMAP_PRESSED, kf_Cheat_God, N_("Toggle god mode"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_B, KEYMAP_PRESSED, kf_Cheat_FinishBuilding, N_("Finish construction project"));
 
 	saveKeyMap();	// save out the default key mappings.
 }

@@ -403,7 +403,7 @@ void giftPower(uint8_t from, uint8_t to, uint32_t amount, bool send)
 		}
 		else if (amount == 0) // the GUI option
 		{
-			value = getPower(from);
+			value = getPower(from) / 3;
 			usePower(from, value);
 			addPower(to, value);
 		}
@@ -419,6 +419,9 @@ void giftPower(uint8_t from, uint8_t to, uint32_t amount, bool send)
 			usePower(from, value);
 			addPower(to, value);
 		}
+
+		// Finally, if it's not a self transfer and you are the reciever, print
+		// out a recieved power notification!
 		if (from != ANYPLAYER && to == selectedPlayer && to != from)
 		{
 			CONPRINTF(ConsoleString, (ConsoleString, _("%s Gives You %d Power"), getPlayerName(from), value));
