@@ -464,7 +464,7 @@ void keyInitMappings(bool bForceDefaults)
 	// Cheat key maps
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Cheat_AddPower, N_("Add power"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Cheat_FinishResearch, N_("Finish research"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_K, KEYMAP_PRESSED, kf_Cheat_Destroy, N_("Destroy"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Cheat_Destroy, N_("Destroy"));
 
 	saveKeyMap();	// save out the default key mappings.
 }
