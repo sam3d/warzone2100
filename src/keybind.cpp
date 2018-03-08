@@ -2754,3 +2754,8 @@ void kf_BuildNextPage()
 
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
 }
+
+void kf_Cheat_AddPower()
+{
+	giftPower(selectedPlayer, selectedPlayer, 1000, true);
+}
