@@ -2992,7 +2992,7 @@ void kf_Cheat_God()
 	}
 }
 
-void kf_Cheat_FinishBuildings()
+void kf_Cheat_FinishBuilding()
 {
 	if (!kf_Cheat_Enabled())
 	{
@@ -3004,14 +3004,22 @@ void kf_Cheat_FinishBuildings()
 	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
 	{
 		psNStruct = psCStruct->psNext;
+		// if (psCStruct->selected) // If selected building
+		// {
+			if (!bMultiMessages)
+			{
+				buildingComplete(psCStruct); // Single-player game
+			}
+			else
+			{
+				// TODO: Check if structure is unbuilt, and if so, build it and add total HP
+				// psCStruct->status = SS_BUILT;
+				// buildingComplete(psCStruct);
+				// triggerEventStructBuilt(psCStruct, nullptr);
 
-		if (!bMultiMessages)
-		{
-			buildingComplete(psCStruct); // Single-player game
-		}
-		else
-		{
-			SendBuildFinished(psCStruct);
-		}
+				structureBuild(psCStruct, nullptr, 999999, 999999);
+				SendBuildFinished(psCStruct);
+			}
+		// }
 	}
 }
