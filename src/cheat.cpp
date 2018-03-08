@@ -92,18 +92,18 @@ static CHEAT_ENTRY cheatCodes[] =
 
 bool setHiddenCheatMode(const char *msg)
 {
-	bool enable = (strcmp(msg, "enable hidden cheat mode") == 0);
-	bool disable = (strcmp(msg, "disable hidden cheat mode") == 0);
+	bool enable = (strcmp(msg, "archangel up") == 0);
+	bool disable = (strcmp(msg, "fall") == 0);
 
 	if (enable)
 	{
 		kf_Cheat_Enable(); // Enable hidden cheats
-		CONPRINTF(ConsoleString, (ConsoleString, "Hidden cheat mode enabled"));
+		CONPRINTF(ConsoleString, (ConsoleString, "You are imbued with power"));
 	}
-	else if (disable)
+	else if (disable && kf_Cheat_Enabled())
 	{
 		kf_Cheat_Disable(); // Disable hidden cheats
-		CONPRINTF(ConsoleString, (ConsoleString, "Hidden cheat mode disabled"));
+		CONPRINTF(ConsoleString, (ConsoleString, "You are cast from heaven"));
 	}
 
 	return (enable || disable);
