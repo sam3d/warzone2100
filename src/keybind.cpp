@@ -3006,7 +3006,7 @@ void kf_Cheat_FinishBuilding()
 	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
 	{
 		psNStruct = psCStruct->psNext;
-		if (psCStruct->selected)
+		if (psCStruct->selected && psCStruct->status != SS_BUILT)
 		{
 			if (!bMultiMessages)
 			{
