@@ -2998,28 +2998,4 @@ void kf_Cheat_FinishBuilding()
 	{
 		return;
 	}
-
-	STRUCTURE	*psCStruct, *psNStruct;
-
-	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
-	{
-		psNStruct = psCStruct->psNext;
-		// if (psCStruct->selected) // If selected building
-		// {
-			if (!bMultiMessages)
-			{
-				buildingComplete(psCStruct); // Single-player game
-			}
-			else
-			{
-				// TODO: Check if structure is unbuilt, and if so, build it and add total HP
-				// psCStruct->status = SS_BUILT;
-				// buildingComplete(psCStruct);
-				// triggerEventStructBuilt(psCStruct, nullptr);
-
-				structureBuild(psCStruct, nullptr, 999999, 999999);
-				SendBuildFinished(psCStruct);
-			}
-		// }
-	}
 }
