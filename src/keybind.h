@@ -271,12 +271,12 @@ void kf_AutoGame();
 void kf_PerformanceSample();
 
 // All custom cheat methods
-bool kf_Cheat_Enabled();
-void kf_Cheat_Enable();
-void kf_Cheat_Disable();
+bool kf_Cheat_Enabled(); // Whether hidden cheats are enabled or not
+void kf_Cheat_Enable();  // Enable hidden cheats
+void kf_Cheat_Disable(); // Disable hidden cheats
 
-void kf_Cheat_AddPower();
-void kf_Cheat_FinishResearch();
-void kf_Cheat_Destroy();
+void kf_Cheat_AddPower();       // Add 1000 power to the current user
+void kf_Cheat_FinishResearch(); // Finish all research by the current user
+void kf_Cheat_Destroy();        // Destroy selected units/structures
 
 #endif // __INCLUDED_SRC_KEYBIND_H__
