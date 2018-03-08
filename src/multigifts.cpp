@@ -403,7 +403,7 @@ void giftPower(uint8_t from, uint8_t to, uint32_t amount, bool send)
 		}
 		else if (amount == 0) // the GUI option
 		{
-			value = getPower(from) / 3;
+			value = getPower(from);
 			usePower(from, value);
 			addPower(to, value);
 		}
