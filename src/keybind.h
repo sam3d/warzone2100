@@ -270,7 +270,11 @@ void kf_AutoGame();
 
 void kf_PerformanceSample();
 
-bool playerCanCheat();
+// All custom cheat methods
+bool kf_Cheat_Enabled();
+void kf_Cheat_Enable();
+void kf_Cheat_Disable();
+
 void kf_Cheat_AddPower();
 void kf_Cheat_FinishResearch();
 void kf_Cheat_Destroy();

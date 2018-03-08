@@ -30,6 +30,7 @@
 #include "cheat.h"
 #include "keybind.h"
 #include "keymap.h"
+#include "console.h"
 #include "multiplay.h"
 #include "qtscript.h"
 #include "template.h"
@@ -88,6 +89,25 @@ static CHEAT_ENTRY cheatCodes[] =
 	{"autogame off", kf_AutoGame},
 
 };
+
+bool setHiddenCheatMode(const char *msg)
+{
+	bool enable = (strcmp(msg, "enable hidden cheat mode") == 0);
+	bool disable = (strcmp(msg, "disable hidden cheat mode") == 0);
+
+	if (enable)
+	{
+		kf_Cheat_Enable(); // Enable hidden cheats
+		CONPRINTF(ConsoleString, (ConsoleString, "Hidden cheat mode enabled"));
+	}
+	else if (disable)
+	{
+		kf_Cheat_Disable(); // Disable hidden cheats
+		CONPRINTF(ConsoleString, (ConsoleString, "Hidden cheat mode disabled"));
+	}
+
+	return (enable || disable);
+}
 
 bool attemptCheatCode(const char *cheat_name)
 {

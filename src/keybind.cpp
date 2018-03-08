@@ -2755,17 +2755,34 @@ void kf_BuildNextPage()
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
 }
 
-bool playerCanCheat()
-{
-	int cmpName = (strncmp(getPlayerName(selectedPlayer), "Sam", 256) == 0); // Has the name "Sam"
-	int cmpNum = (selectedPlayer == 0); // Is the first player
+/*
+ * All custom cheat codes follow this line. They can only be called if the
+ * playerCanCheat is set to true and enabled fully. It if's not enabled, then
+ * cheating of the following, hidden forms, is disabled.
+ */
 
-	return (cmpName && cmpNum);
+// Whether the player can utilise special cheats
+static bool playerCanCheat = false;
+
+// Use this to check whther the special cheats are enabled or not
+bool kf_Cheat_Enabled()
+{
+	return playerCanCheat;
+}
+
+void kf_Cheat_Enable()
+{
+	playerCanCheat = true;
+}
+
+void kf_Cheat_Disable()
+{
+	playerCanCheat = false;
 }
 
 void kf_Cheat_AddPower()
 {
-	if (!playerCanCheat())
+	if (!kf_Cheat_Enabled())
 	{
 		return;
 	}
@@ -2775,7 +2792,7 @@ void kf_Cheat_AddPower()
 
 void kf_Cheat_FinishResearch()
 {
-	if (!playerCanCheat())
+	if (!kf_Cheat_Enabled())
 	{
 		return;
 	}
@@ -2812,7 +2829,7 @@ void kf_Cheat_FinishResearch()
 
 void kf_Cheat_Destroy()
 {
-	if (!playerCanCheat())
+	if (!kf_Cheat_Enabled())
 	{
 		return;
 	}
