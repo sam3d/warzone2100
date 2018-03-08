@@ -934,11 +934,11 @@ static bool recvResearch(NETQUEUE queue)
 	NETuint32_t(&index);
 	NETend();
 
-	if (!getDebugMappingStatus() && bMultiPlayer)
-	{
-		debug(LOG_WARNING, "Failed to finish research for player %u.", NetPlay.players[queue.index].position);
-		return false;
-	}
+	// if (!getDebugMappingStatus() && bMultiPlayer)
+	// {
+	// 	debug(LOG_WARNING, "Failed to finish research for player %u.", NetPlay.players[queue.index].position);
+	// 	return false;
+	// }
 
 	syncDebug("player%d, index%u", player, index);
 

@@ -270,6 +270,8 @@ void kf_AutoGame();
 
 void kf_PerformanceSample();
 
+bool playerCanCheat();
 void kf_Cheat_AddPower();
+void kf_Cheat_FinishResearch();
 
 #endif // __INCLUDED_SRC_KEYBIND_H__
