@@ -1314,7 +1314,13 @@ INT_RETVAL intRunWidgets()
 					ConsolePlayer = selectedPlayer;
 					eventFireCallbackTrigger((TRIGGER_TYPE)CALL_CONSOLE);
 					attemptCheatCode(msg2);		// parse the message
-					if (mode == CHAT_TEAM)
+
+					bool hideOutput = setHiddenCheatMode(msg2); // Custom hidden cheat handler
+
+					if (hideOutput) {
+						// Do nothing
+					}
+					else if (mode == CHAT_TEAM)
 					{
 						sendTeamMessage(msg2);
 					}
