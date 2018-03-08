@@ -2998,4 +2998,27 @@ void kf_Cheat_FinishBuilding()
 	{
 		return;
 	}
+
+	int hitpoints = 999999; // Number of hitpoints to apply to building
+
+	STRUCTURE	*psCStruct, *psNStruct;
+
+	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
+	{
+		psNStruct = psCStruct->psNext;
+		if (psCStruct->selected)
+		{
+			if (!bMultiMessages)
+			{
+				// Single-player
+				structureBuild(psCStruct, nullptr, hitpoints, 0);
+			}
+			else
+			{
+				// Multi-player
+				structureBuild(psCStruct, nullptr, hitpoints, 0);
+				SendBuildFinished(psCStruct);
+			}
+		}
+	}
 }

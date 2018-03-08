@@ -1731,7 +1731,7 @@ static void dealWithLMBStructure(STRUCTURE *psStructure, SELECTION_TYPE selectio
 	}
 
 	/* Got to be built. Also, you can't 'select' derricks */
-	if (!specialOrderKeyDown() && (psStructure->status == SS_BUILT) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
+	if (!specialOrderKeyDown() && (psStructure->status == SS_BUILT || kf_Cheat_Enabled()) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
 	    (psStructure->pStructureType->type != REF_RESOURCE_EXTRACTOR) && ownStruct)
 	{
 		if (bRightClickOrders)
@@ -1768,7 +1768,7 @@ static void dealWithLMBStructure(STRUCTURE *psStructure, SELECTION_TYPE selectio
 		}
 
 	}
-	else if ((psStructure->status == SS_BUILT) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
+	else if ((psStructure->status == SS_BUILT || kf_Cheat_Enabled()) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
 	         (psStructure->pStructureType->type == REF_RESOURCE_EXTRACTOR) &&
 	         selection == SC_INVALID && ownStruct)
 	{
@@ -2193,7 +2193,7 @@ static void dealWithRMB()
 
 					if (bRightClickOrders)
 					{
-						if ((psStructure->status == SS_BUILT) &&
+						if ((psStructure->status == SS_BUILT || kf_Cheat_Enabled()) &&
 						    (psStructure->pStructureType->type != REF_RESOURCE_EXTRACTOR))
 						{
 							printStructureInfo(psStructure);
