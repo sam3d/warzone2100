@@ -43,6 +43,7 @@
 #include "power.h"
 #include "miscimd.h"
 #include "effects.h"
+#include "keybind.h"
 #include "combat.h"
 #include "lib/sound/audio.h"
 #include "lib/sound/audio_id.h"
@@ -3576,7 +3577,7 @@ void structureUpdate(STRUCTURE *psBuilding, bool mission)
 
 	if (psBuilding->status != SS_BUILT)
 	{
-		if (psBuilding->selected)
+		if (psBuilding->selected && !kf_Cheat_Enabled())
 		{
 			psBuilding->selected = false;
 		}
