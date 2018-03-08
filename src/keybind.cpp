@@ -2994,12 +2994,12 @@ void kf_Cheat_God()
 
 void kf_Cheat_FinishBuilding()
 {
+	return; // Temporarily disable
+
 	if (!kf_Cheat_Enabled())
 	{
 		return;
 	}
-
-	int hitpoints = 999999; // Number of hitpoints to apply to building
 
 	STRUCTURE	*psCStruct, *psNStruct;
 
@@ -3011,12 +3011,12 @@ void kf_Cheat_FinishBuilding()
 			if (!bMultiMessages)
 			{
 				// Single-player
-				structureBuild(psCStruct, nullptr, hitpoints, 0);
+				structureBuild(psCStruct, nullptr, psCStruct->pStructureType->buildPoints, 0);
 			}
 			else
 			{
 				// Multi-player
-				structureBuild(psCStruct, nullptr, hitpoints, 0);
+				structureBuild(psCStruct, nullptr, psCStruct->pStructureType->buildPoints + 1, 0);
 				SendBuildFinished(psCStruct);
 			}
 		}
