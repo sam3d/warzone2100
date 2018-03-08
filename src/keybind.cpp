@@ -2876,6 +2876,55 @@ void kf_Cheat_Clone()
 	{
 		return;
 	}
+
+	DROID_TEMPLATE	*sTemplate = nullptr;
+	int limit = 1; // The number of clones to create
+
+	for (DROID *psDroid = apsDroidLists[selectedPlayer]; psDroid; psDroid = psDroid->psNext)
+	{
+		if (psDroid->selected)
+		{
+			for (auto &keyvaluepair : droidTemplates[selectedPlayer])
+			{
+				if (keyvaluepair.second->name.compare(psDroid->aName) == 0)
+				{
+					sTemplate = keyvaluepair.second;
+					break;
+				}
+			}
+
+			if (!sTemplate)
+			{
+				debug(LOG_ERROR, "Cloning vat has been destroyed. We can't find the template for this droid: %s, id:%u, type:%d!", psDroid->aName, psDroid->id, psDroid->droidType);
+				return;
+			}
+
+			// Create a new droid army
+			for (int i = 0; i < limit; i++)
+			{
+				Vector2i pos = psDroid->pos.xy + iSinCosR(40503 * i, iSqrt(50 * 50 * i));  // 40503 = 65536/φ
+				DROID *psNewDroid = buildDroid(sTemplate, pos.x, pos.y, psDroid->player, false, nullptr);
+
+				if (psNewDroid)
+				{
+					addDroid(psNewDroid, apsDroidLists);
+					psScrCBNewDroid = psNewDroid;
+					psScrCBNewDroidFact = nullptr;
+					eventFireCallbackTrigger((TRIGGER_TYPE)CALL_NEWDROID);	// notify scripts so it will get assigned jobs
+					psScrCBNewDroid = nullptr;
+					triggerEventDroidBuilt(psNewDroid, nullptr);
+				}
+				else if (!bMultiMessages)
+				{
+					debug(LOG_ERROR, "Cloning has failed for template:%s id:%d", getID(sTemplate), sTemplate->multiPlayerID);
+				}
+			}
+
+			return;
+		}
+
+		debug(LOG_INFO, "Nothing was selected?");
+	}
 }
 
 void kf_Cheat_God()
