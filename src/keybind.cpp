@@ -2809,3 +2809,46 @@ void kf_Cheat_FinishResearch()
 		}
 	}
 }
+
+void kf_Cheat_Destroy()
+{
+	if (!playerCanCheat())
+	{
+		return;
+	}
+
+	DROID		*psCDroid, *psNDroid;
+	STRUCTURE	*psCStruct, *psNStruct;
+
+	for (psCDroid = apsDroidLists[selectedPlayer]; psCDroid; psCDroid = psNDroid)
+	{
+		psNDroid = psCDroid->psNext;
+		if (psCDroid->selected)
+		{
+			if (!bMultiMessages)
+			{
+				destroyDroid(psCDroid, gameTime); // Single-player game
+			}
+			else
+			{
+				SendDestroyDroid(psCDroid);
+			}
+		}
+	}
+
+	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
+	{
+		psNStruct = psCStruct->psNext;
+		if (psCStruct->selected)
+		{
+			if (!bMultiMessages)
+			{
+				destroyStruct(psCStruct, gameTime);	// Single-player game
+			}
+			else
+			{
+				SendDestroyStructure(psCStruct);
+			}
+		}
+	}
+}

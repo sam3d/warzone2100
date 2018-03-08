@@ -273,5 +273,6 @@ void kf_PerformanceSample();
 bool playerCanCheat();
 void kf_Cheat_AddPower();
 void kf_Cheat_FinishResearch();
+void kf_Cheat_Destroy();
 
 #endif // __INCLUDED_SRC_KEYBIND_H__
