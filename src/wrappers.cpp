@@ -37,6 +37,7 @@
 #include "frontend.h"
 #include "keyedit.h"
 #include "keymap.h"
+#include "keybind.h"
 #include "mission.h"
 #include "multiint.h"
 #include "multilimit.h"
@@ -126,6 +127,9 @@ TITLECODE titleLoop()
 	pie_SetFogStatus(false);
 	screen_RestartBackDrop();
 	wzShowMouse(true);
+
+	// Disable cheats
+	kf_Cheat_Disable();
 
 	// When we first init the game, firstcall is true.
 	if (firstcall)
