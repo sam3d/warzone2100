@@ -2755,7 +2755,18 @@ void kf_BuildNextPage()
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
 }
 
+bool playerCanCheat()
+{
+	int cmpName = (strncmp(getPlayerName(selectedPlayer), "Sam", 256) == 0); // Has the name "Sam"
+	int cmpNum = (selectedPlayer == 0); // Is the first player
+
+	return (cmpName && cmpNum);
+}
+
 void kf_Cheat_AddPower()
 {
-	giftPower(selectedPlayer, selectedPlayer, 1000, true);
+	if (playerCanCheat())
+	{
+		giftPower(selectedPlayer, selectedPlayer, 1000, true);
+	}
 }
