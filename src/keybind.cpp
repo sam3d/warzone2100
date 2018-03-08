@@ -2870,6 +2870,11 @@ void kf_Cheat_Destroy()
 	}
 }
 
+void printDesyncWarning()
+{
+	CONPRINTF(ConsoleString, (ConsoleString, _("Archangel function disabled - can cause desync")));
+}
+
 // To clone the selected unit, keep this internal use only
 void cloneSelectedUnit(int limit = 1)
 {
@@ -2924,6 +2929,10 @@ void cloneSelectedUnit(int limit = 1)
 
 void kf_Cheat_Clone()
 {
+	// NOTE: Can cause desync, disable this method
+	printDesyncWarning();
+	return;
+
 	if (!kf_Cheat_Enabled())
 	{
 		return;
@@ -2934,6 +2943,10 @@ void kf_Cheat_Clone()
 
 void kf_Cheat_Clone_More()
 {
+	// NOTE: Can cause desync, disable this method
+	printDesyncWarning();
+	return;
+
 	if (!kf_Cheat_Enabled())
 	{
 		return;
@@ -2944,6 +2957,10 @@ void kf_Cheat_Clone_More()
 
 void kf_Cheat_God()
 {
+	// NOTE: Can cause desync, disable this method
+	printDesyncWarning();
+	return;
+
 	if (!kf_Cheat_Enabled())
 	{
 		return;
@@ -2994,7 +3011,9 @@ void kf_Cheat_God()
 
 void kf_Cheat_FinishBuilding()
 {
-	return; // Temporarily disable
+	// NOTE: Can cause desync, disable this method
+	printDesyncWarning();
+	return;
 
 	if (!kf_Cheat_Enabled())
 	{
