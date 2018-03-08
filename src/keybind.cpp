@@ -2933,6 +2933,48 @@ void kf_Cheat_God()
 	{
 		return;
 	}
+
+	static bool pastReveal = true;
+
+	if (godMode)
+	{
+		FEATURE	*psFeat = apsFeatureLists[0];
+
+		godMode = false;
+		setRevealStatus(pastReveal);
+
+		// Now, hide the features
+		while (psFeat)
+		{
+			psFeat->visible[selectedPlayer] = 0;
+			psFeat = psFeat->psNext;
+		}
+
+		// ... and the structures
+		for (unsigned player = 0; player < MAX_PLAYERS; ++player)
+		{
+			if (player != selectedPlayer)
+			{
+				STRUCTURE *psStruct = apsStructLists[player];
+
+				while (psStruct)
+				{
+					psStruct->visible[selectedPlayer] = 0;
+					psStruct = psStruct->psNext;
+				}
+			}
+		}
+
+		// Remove all proximity messages
+		releaseAllProxDisp();
+	}
+	else
+	{
+		godMode = true; // view all structures and droids
+		revealAll(selectedPlayer);
+		pastReveal = getRevealStatus();
+		setRevealStatus(true); // view the entire map
+	}
 }
 
 void kf_Cheat_FinishBuildings()
