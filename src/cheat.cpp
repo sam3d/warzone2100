@@ -95,7 +95,7 @@ bool setHiddenCheatMode(const char *msg)
 	bool enable = (strcmp(msg, "archangel up") == 0);
 	bool disable = (strcmp(msg, "fall") == 0);
 
-	if (enable)
+	if (enable && !kf_Cheat_Enabled())
 	{
 		kf_Cheat_Enable(); // Enable hidden cheats
 		CONPRINTF(ConsoleString, (ConsoleString, "You are imbued with power"));
