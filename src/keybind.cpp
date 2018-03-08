@@ -2869,3 +2869,27 @@ void kf_Cheat_Destroy()
 		}
 	}
 }
+
+void kf_Cheat_Clone()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+}
+
+void kf_Cheat_God()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+}
+
+void kf_Cheat_FinishBuildings()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+}
