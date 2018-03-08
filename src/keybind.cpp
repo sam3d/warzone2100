@@ -2870,15 +2870,10 @@ void kf_Cheat_Destroy()
 	}
 }
 
-void kf_Cheat_Clone()
+// To clone the selected unit, keep this internal use only
+void cloneSelectedUnit(int limit = 1)
 {
-	if (!kf_Cheat_Enabled())
-	{
-		return;
-	}
-
 	DROID_TEMPLATE	*sTemplate = nullptr;
-	int limit = 1; // The number of clones to create
 
 	for (DROID *psDroid = apsDroidLists[selectedPlayer]; psDroid; psDroid = psDroid->psNext)
 	{
@@ -2925,6 +2920,26 @@ void kf_Cheat_Clone()
 
 		debug(LOG_INFO, "Nothing was selected?");
 	}
+}
+
+void kf_Cheat_Clone()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+
+	cloneSelectedUnit();
+}
+
+void kf_Cheat_Clone_More()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+
+	cloneSelectedUnit(5);
 }
 
 void kf_Cheat_God()
