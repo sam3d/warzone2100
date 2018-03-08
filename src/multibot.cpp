@@ -805,11 +805,18 @@ bool recvDestroyDroid(NETQUEUE queue)
 	}
 	NETend();
 
-	// if (!getDebugMappingStatus() && bMultiPlayer)
-	// {
-	// 	debug(LOG_WARNING, "Failed to remove droid for player %u.", NetPlay.players[queue.index].position);
-	// 	return false;
-	// }
+	/*
+	 * This has been commented out for the purposes of the hidden cheat mode. If
+	 * getDebugMappingStatus is checked and is not enabled while in multiplayer,
+	 * the method won't complete and nothing will happen. This disables the clientside
+	 * check of debug mode.
+
+	if (!getDebugMappingStatus() && bMultiPlayer)
+	{
+		debug(LOG_WARNING, "Failed to remove droid for player %u.", NetPlay.players[queue.index].position);
+		return false;
+	}
+	*/
 
 	// If the droid has not died on our machine yet, destroy it
 	if (!psDroid->died)

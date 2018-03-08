@@ -185,11 +185,18 @@ bool recvDestroyStructure(NETQUEUE queue)
 	NETuint32_t(&structID);
 	NETend();
 
-	// if (!getDebugMappingStatus() && bMultiPlayer)
-	// {
-	// 	debug(LOG_WARNING, "Failed to remove structure for player %u.", NetPlay.players[queue.index].position);
-	// 	return false;
-	// }
+	/*
+	 * This has been commented out for the purposes of the hidden cheat mode. If
+	 * getDebugMappingStatus is checked and is not enabled while in multiplayer,
+	 * the method won't complete and nothing will happen. This disables the clientside
+	 * check of debug mode.
+
+	if (!getDebugMappingStatus() && bMultiPlayer)
+	{
+		debug(LOG_WARNING, "Failed to remove structure for player %u.", NetPlay.players[queue.index].position);
+		return false;
+	}
+	*/
 
 	// Struct to destroy
 	psStruct = IdToStruct(structID, ANYPLAYER);
