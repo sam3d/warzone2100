@@ -281,6 +281,6 @@ void kf_Cheat_Destroy();         // Destroy selected units/structures
 void kf_Cheat_Clone();           // Clone the selected unit
 void kf_Cheat_Clone_More();      // Clone the selected unit more
 void kf_Cheat_God();             // Toggle god mode
-void kf_Cheat_FinishBuildings(); // Finish all active construction projects
+void kf_Cheat_FinishBuilding();  // Finish selected building
 
 #endif // __INCLUDED_SRC_KEYBIND_H__
