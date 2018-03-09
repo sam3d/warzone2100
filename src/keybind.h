@@ -278,5 +278,6 @@ void kf_Cheat_Disable(); // Disable hidden cheats
 void kf_Cheat_AddPower();       // Add 1000 power to the current user
 void kf_Cheat_FinishResearch(); // Finish all research by the current user
 void kf_Cheat_Destroy();        // Destroy selected units/structures
+void kf_Cheat_FinishUnits();    // Finish all factory productions
 
 #endif // __INCLUDED_SRC_KEYBIND_H__

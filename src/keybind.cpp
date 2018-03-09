@@ -2869,3 +2869,23 @@ void kf_Cheat_Destroy()
 		}
 	}
 }
+
+void kf_Cheat_FinishUnits()
+{
+	if (!kf_Cheat_Enabled())
+	{
+		return;
+	}
+
+	STRUCTURE	*psCurr;
+	FACTORY		*psFactory;
+
+	for (psCurr = interfaceStructList(); psCurr; psCurr = psCurr->psNext)
+	{
+		if (psCurr->pStructureType->type == REF_FACTORY)
+		{
+			psFactory = &psCurr->pFunctionality->factory; // Get the factory
+			psFactory->buildPointsRemaining = 0; // Finish the build points
+		}
+	}
+}
