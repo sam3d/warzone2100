@@ -30,10 +30,11 @@
 #include "cheat.h"
 #include "keybind.h"
 #include "keymap.h"
-#include "console.h"
 #include "multiplay.h"
 #include "qtscript.h"
 #include "template.h"
+
+#include "archangel.h"
 
 struct CHEAT_ENTRY
 {
@@ -95,15 +96,13 @@ bool setHiddenCheatMode(const char *msg)
 	bool enable = (strcmp(msg, "archangel up") == 0);
 	bool disable = (strcmp(msg, "fall") == 0);
 
-	if (enable && !kf_Cheat_Enabled())
+	if (enable)
 	{
-		kf_Cheat_Enable(); // Enable hidden cheats
-		CONPRINTF(ConsoleString, (ConsoleString, "You are imbued with power"));
+		Archangel->disable();
 	}
-	else if (disable && kf_Cheat_Enabled())
+	else if (disable)
 	{
-		kf_Cheat_Disable(); // Disable hidden cheats
-		CONPRINTF(ConsoleString, (ConsoleString, "You are cast from heaven"));
+		Archangel->enable();
 	}
 
 	return (enable || disable);
