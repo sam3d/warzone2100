@@ -98,11 +98,11 @@ bool setHiddenCheatMode(const char *msg)
 
 	if (enable)
 	{
-		Archangel->disable();
+		Archangel->enable();
 	}
 	else if (disable)
 	{
-		Archangel->enable();
+		Archangel->disable();
 	}
 
 	return (enable || disable);

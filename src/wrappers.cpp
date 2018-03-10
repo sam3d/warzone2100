@@ -129,7 +129,7 @@ TITLECODE titleLoop()
 	screen_RestartBackDrop();
 	wzShowMouse(true);
 
-	Archangel->disable(); // Disable when back to title
+	Archangel->disable();
 
 	// When we first init the game, firstcall is true.
 	if (firstcall)
