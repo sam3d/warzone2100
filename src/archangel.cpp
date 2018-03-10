@@ -2,18 +2,76 @@
  * archangel.cpp
  */
 
-#include "lib/netplay/netplay.h"
-
 #include "archangel.h"
 
+#include "lib/framework/frame.h"
+#include "lib/framework/stdio_ext.h"
+#include "lib/framework/wzapp.h"
+#include "lib/framework/rational.h"
+#include "objects.h"
+#include "levels.h"
+#include "basedef.h"
+#include "map.h"
+#include "warcam.h"
+#include "warzoneconfig.h"
 #include "console.h"
-#include "multiplay.h"
-#include "multigifts.h"
-#include "structure.h"
+#include "display.h"
+#include "mapdisplay.h"
+#include "display3d.h"
+#include "edit3d.h"
+#include "keybind.h"
+#include "mechanics.h"
+#include "lib/sound/audio.h"
+#include "lib/sound/audio_id.h"
+#include "lighting.h"
+#include "power.h"
 #include "hci.h"
+#include "oprint.h"
+#include "ingameop.h"
+#include "effects.h"
+#include "component.h"
+#include "geometry.h"
+#include "radar.h"
+#include "structure.h"
+// FIXME Direct iVis implementation include!
+#include "lib/ivis_opengl/screen.h"
+
+#include "cheat.h"
+#include "lib/netplay/netplay.h"
+#include "multiplay.h"
+#include "multimenu.h"
+#include "atmos.h"
+#include "advvis.h"
+
+#include "intorder.h"
+#include "lib/widget/listwidget.h"
+#include "order.h"
+#include "lib/ivis_opengl/piestate.h"
+// FIXME Direct iVis implementation include!
+#include "lib/framework/fixedpoint.h"
+#include "lib/ivis_opengl/piematrix.h"
+
+#include "keymap.h"
+#include "loop.h"
+#include "lib/script/script.h"
+#include "scriptextern.h"
+#include "mission.h"
+#include "mapgrid.h"
+#include "order.h"
+#include "selection.h"
+#include "difficulty.h"
+#include "scriptcb.h"		/* for console callback */
+#include "scriptfuncs.h"
+#include "clparse.h"
 #include "research.h"
-#include "objmem.h"
-#include "droid.h"
+#include "template.h"
+#include "qtscript.h"
+#include "multigifts.h"
+
+void print(char* msg)
+{
+    CONPRINTF(ConsoleString, (ConsoleString, msg));
+}
 
 ARCHANGEL::ARCHANGEL()
 {
@@ -25,7 +83,7 @@ void ARCHANGEL::disable()
     if (isEnabled)
     {
         isEnabled = false;
-        CONPRINTF(ConsoleString, (ConsoleString, "You are cast from heaven"));
+        print("You are cast from heaven");
     }
 }
 
@@ -34,7 +92,7 @@ void ARCHANGEL::enable()
     if (!isEnabled)
     {
         isEnabled = true;
-        CONPRINTF(ConsoleString, (ConsoleString, "You are imbued with power"));
+        print("You are imbued with power");
     }
 }
 
@@ -134,7 +192,4 @@ void ARCHANGEL::destroySelected()
 	}
 }
 
-void archangel_init()
-{
-    Archangel = new ARCHANGEL();
-}
+ARCHANGEL *Archangel = new ARCHANGEL();

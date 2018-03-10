@@ -20,8 +20,6 @@ public:
     void destroySelected();    // Destroy the select unit or structure
 };
 
-static ARCHANGEL* Archangel;
-
-void archangel_init(); // Initialise Archangel
+extern ARCHANGEL *Archangel;
 
 #endif

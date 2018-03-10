@@ -78,8 +78,6 @@
 #include "keybind.h"
 #include <time.h>
 
-#include "archangel.h"
-
 #if defined(WZ_OS_MAC)
 // NOTE: Moving these defines is likely to (and has in the past) break the mac builds
 # include <CoreServices/CoreServices.h>
@@ -875,9 +873,6 @@ int realmain(int argc, char *argv[])
 
 	/*** Initialize translations ***/
 	initI18n();
-
-	// Initialise archangel mode
-	archangel_init();
 
 	// find early boot info
 	if (!ParseCommandLineEarly(utfargc, utfargv))
