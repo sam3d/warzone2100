@@ -23,7 +23,6 @@
 
 struct NETQUEUE;
 
-bool setHiddenCheatMode(const char *msg);
 bool attemptCheatCode(const char *cheat_name);
 
 void sendProcessDebugMappings(bool val);

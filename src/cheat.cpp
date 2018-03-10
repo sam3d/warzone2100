@@ -34,8 +34,6 @@
 #include "qtscript.h"
 #include "template.h"
 
-#include "archangel.h"
-
 struct CHEAT_ENTRY
 {
 	const char *pName;
@@ -90,23 +88,6 @@ static CHEAT_ENTRY cheatCodes[] =
 	{"autogame off", kf_AutoGame},
 
 };
-
-bool setHiddenCheatMode(const char *msg)
-{
-	bool enable = (strcmp(msg, "archangel up") == 0);
-	bool disable = (strcmp(msg, "fall") == 0);
-
-	if (enable)
-	{
-		Archangel->enable();
-	}
-	else if (disable)
-	{
-		Archangel->disable();
-	}
-
-	return (enable || disable);
-}
 
 bool attemptCheatCode(const char *cheat_name)
 {

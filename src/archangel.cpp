@@ -48,6 +48,23 @@ bool ARCHANGEL::toggle()
     return isEnabled;
 }
 
+bool ARCHANGEL::parseCommand(const char *msg)
+{
+    bool isEnableRequest = (strcmp(msg, "archangel up") == 0);
+	bool isDisableRequest = (strcmp(msg, "fall") == 0);
+
+	if (isEnableRequest)
+	{
+		enable();
+	}
+	else if (isDisableRequest)
+	{
+		disable();
+	}
+
+	return (isEnableRequest || isDisableRequest);
+}
+
 void ARCHANGEL::addPower(int amount)
 {
     if (!isEnabled)

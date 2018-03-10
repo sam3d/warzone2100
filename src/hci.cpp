@@ -85,6 +85,8 @@
 #include "qtscript.h"
 #include "frend.h"
 
+#include "archangel.h"
+
 // Is a button widget highlighted, either because the cursor is over it or it is flashing.
 //
 #define buttonIsHilite(p)  ((p->getState() & WBUT_HIGHLIGHT) != 0)
@@ -1315,7 +1317,7 @@ INT_RETVAL intRunWidgets()
 					eventFireCallbackTrigger((TRIGGER_TYPE)CALL_CONSOLE);
 					attemptCheatCode(msg2);		// parse the message
 
-					bool hideOutput = setHiddenCheatMode(msg2); // Custom hidden cheat handler
+					bool hideOutput = Archangel->parseCommand(msg2);
 
 					if (hideOutput) {
 						// Do nothing

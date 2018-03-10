@@ -15,6 +15,8 @@ public:
     void enable();  // Enable archangel
     bool toggle();  // Toggle archangel and get new enabled status
 
+    bool parseCommand(const char *msg); // Parse command to enable or disable
+
     void addPower(int amount); // Add power to the current user
     void finishResearch();     // Finish all active research
     void destroySelected();    // Destroy the select unit or structure
