@@ -83,6 +83,8 @@
 #include "qtscript.h"
 #include "multigifts.h"
 
+#include "archangel.h"
+
 /*
 	KeyBind.c
 	Holds all the functions that can be mapped to a key.
@@ -2755,117 +2757,17 @@ void kf_BuildNextPage()
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
 }
 
-/*
- * All custom cheat codes follow this line. They can only be called if the
- * playerCanCheat is set to true and enabled fully. It if's not enabled, then
- * cheating of the following, hidden forms, is disabled.
- */
-
-// Whether the player can utilise special cheats
-static bool playerCanCheat = false;
-
-// Use this to check whther the special cheats are enabled or not
-bool kf_Cheat_Enabled()
+void kf_Archangel_AddPower()
 {
-	return playerCanCheat;
+	Archangel->addPower(1000);
 }
 
-void kf_Cheat_Enable()
+void kf_Archangel_FinishResearch()
 {
-	playerCanCheat = true;
+	Archangel->finishResearch();
 }
 
-void kf_Cheat_Disable()
+void kf_Archangel_DestroySelected()
 {
-	playerCanCheat = false;
-}
-
-void kf_Cheat_AddPower()
-{
-	if (!kf_Cheat_Enabled())
-	{
-		return;
-	}
-
-	giftPower(selectedPlayer, selectedPlayer, 1000, true);
-}
-
-void kf_Cheat_FinishResearch()
-{
-	if (!kf_Cheat_Enabled())
-	{
-		return;
-	}
-
-	STRUCTURE	*psCurr;
-
-	for (psCurr = interfaceStructList(); psCurr; psCurr = psCurr->psNext)
-	{
-		if (psCurr->pStructureType->type == REF_RESEARCH)
-		{
-			BASE_STATS	*pSubject = nullptr;
-
-			// find out what we are researching here
-			pSubject = ((RESEARCH_FACILITY *)psCurr->pFunctionality)->psSubject;
-
-			if (pSubject)
-			{
-				int rindex = ((RESEARCH *)pSubject)->index;
-				if (bMultiMessages)
-				{
-					SendResearch(selectedPlayer, rindex, true);
-					// Wait for our message before doing anything.
-				}
-				else
-				{
-					researchResult(rindex, selectedPlayer, true, psCurr, true);
-				}
-
-				intResearchFinished(psCurr);
-			}
-		}
-	}
-}
-
-void kf_Cheat_Destroy()
-{
-	if (!kf_Cheat_Enabled())
-	{
-		return;
-	}
-
-	DROID		*psCDroid, *psNDroid;
-	STRUCTURE	*psCStruct, *psNStruct;
-
-	for (psCDroid = apsDroidLists[selectedPlayer]; psCDroid; psCDroid = psNDroid)
-	{
-		psNDroid = psCDroid->psNext;
-		if (psCDroid->selected)
-		{
-			if (!bMultiMessages)
-			{
-				destroyDroid(psCDroid, gameTime); // Single-player game
-			}
-			else
-			{
-				SendDestroyDroid(psCDroid);
-			}
-		}
-	}
-
-	for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
-	{
-		psNStruct = psCStruct->psNext;
-		if (psCStruct->selected)
-		{
-			if (!bMultiMessages)
-			{
-				destroyStruct(psCStruct, gameTime);	// Single-player game
-			}
-			else
-			{
-				SendDestroyStructure(psCStruct);
-			}
-		}
-	}
+	Archangel->destroySelected();
 }

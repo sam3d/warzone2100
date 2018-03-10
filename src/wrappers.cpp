@@ -37,13 +37,14 @@
 #include "frontend.h"
 #include "keyedit.h"
 #include "keymap.h"
-#include "keybind.h"
 #include "mission.h"
 #include "multiint.h"
 #include "multilimit.h"
 #include "multistat.h"
 #include "warzoneconfig.h"
 #include "wrappers.h"
+
+#include "archangel.h"
 
 struct STAR
 {
@@ -128,8 +129,7 @@ TITLECODE titleLoop()
 	screen_RestartBackDrop();
 	wzShowMouse(true);
 
-	// Disable cheats
-	kf_Cheat_Disable();
+	Archangel->disable(); // Disable when back to title
 
 	// When we first init the game, firstcall is true.
 	if (firstcall)

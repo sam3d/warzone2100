@@ -232,9 +232,9 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_SelectAllTrucks, "SelectAllTrucks"},
 	{kf_SetDroidOrderStop, "SetDroidOrderStop"},
 	{kf_SelectAllArmedVTOLs, "SelectAllArmedVTOLs"},
-	{kf_Cheat_AddPower, "Cheat_AddPower"},
-	{kf_Cheat_FinishResearch, "Cheat_FinishResearch"},
-	{kf_Cheat_Destroy, "Cheat_Destroy"}
+	{kf_Archangel_AddPower, "Archangel_AddPower"},
+	{kf_Archangel_FinishResearch, "Archangel_FinishResearch"},
+	{kf_Archangel_DestroySelected, "Archangel_DestroySelected"}
 };
 
 KeyMapSaveEntry const *keymapEntryByFunction(void (*function)())
@@ -462,9 +462,9 @@ void keyInitMappings(bool bForceDefaults)
 	keyAddMapping(KEYMAP__DEBUG, KEY_LCTRL,  KEY_L, KEYMAP_PRESSED, kf_TraceObject,       N_("Trace a game object"));
 
 	// Cheat key maps
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Cheat_AddPower, N_("Add power"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Cheat_FinishResearch, N_("Finish research"));
-	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Cheat_Destroy, N_("Destroy"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Archangel_AddPower, N_("Add power"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Archangel_FinishResearch, N_("Finish research"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Archangel_DestroySelected, N_("Destroy selected"));
 
 	saveKeyMap();	// save out the default key mappings.
 }
