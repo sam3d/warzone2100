@@ -17,8 +17,14 @@
 
 void print(char* msg, bool keepHistory = false)
 {
-    if (keepHistory) console(msg);
-    else CONPRINTF(ConsoleString, (ConsoleString, msg));
+    if (keepHistory)
+    {
+        console(msg);
+    }
+    else
+    {
+        CONPRINTF(ConsoleString, (ConsoleString, msg));
+    }
 }
 
 ARCHANGEL::ARCHANGEL()
@@ -55,8 +61,14 @@ bool ARCHANGEL::parseCommand(const char *msg)
     bool isEnableRequest = (strcmp(msg, "archangel up") == 0);
 	bool isDisableRequest = (strcmp(msg, "fall") == 0);
 
-	if (isEnableRequest) enable();
-	else if (isDisableRequest) disable();
+	if (isEnableRequest)
+    {
+        enable();
+    }
+	else if (isDisableRequest)
+    {
+        disable();
+    }
 
 	return (isEnableRequest || isDisableRequest);
 }
@@ -77,31 +89,47 @@ bool sendExample()
 
 bool ARCHANGEL::receive(NETQUEUE queue)
 {
-    print("Received an archangel message");
+    print("Received an archangel message", true);
     return true;
 }
 
 void ARCHANGEL::addPower(int amount)
 {
-    if (!isEnabled) return;
+    if (!isEnabled)
+    {
+        return;
+    }
+
     sendExample();
 }
 
 void ARCHANGEL::finishResearch()
 {
-    if (!isEnabled) return;
+    if (!isEnabled)
+    {
+        return;
+    }
+
     sendExample();
 }
 
 void ARCHANGEL::destroySelected()
 {
-    if (!isEnabled) return;
+    if (!isEnabled)
+    {
+        return;
+    }
+
     sendExample();
 }
 
 void ARCHANGEL::finishUnits()
 {
-    if (!isEnabled) return;
+    if (!isEnabled)
+    {
+        return;
+    }
+
     sendExample();
 }
 
