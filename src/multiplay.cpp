@@ -737,9 +737,6 @@ bool recvMessage()
 			case GAME_DEBUG_FINISH_RESEARCH:
 				recvResearch(queue);
 				break;
-			case GAME_DEBUG_FINISH_UNITS:
-				recvFinishUnits(queue);
-				break;
 			default:
 				processedMessage1 = false;
 				break;
@@ -936,6 +933,12 @@ static bool recvResearch(NETQUEUE queue)
 	NETuint8_t(&player);
 	NETuint32_t(&index);
 	NETend();
+
+	if (!getDebugMappingStatus() && bMultiPlayer)
+	{
+		debug(LOG_WARNING, "Failed to finish research for player %u.", NetPlay.players[queue.index].position);
+		return false;
+	}
 
 	syncDebug("player%d, index%u", player, index);
 

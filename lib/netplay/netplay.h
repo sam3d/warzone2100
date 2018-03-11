@@ -114,7 +114,6 @@ enum MESSAGE_TYPES
 	GAME_DEBUG_REMOVE_STRUCTURE,    ///< Remove structure.
 	GAME_DEBUG_REMOVE_FEATURE,      ///< Remove feature.
 	GAME_DEBUG_FINISH_RESEARCH,     ///< Research has been completed.
-	GAME_DEBUG_FINISH_UNITS,        ///< Units have been finished
 	// End of debug messages.
 	GAME_MAX_TYPE                   ///< Maximum+1 valid GAME_ type, *MUST* be last.
 };

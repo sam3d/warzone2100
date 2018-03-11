@@ -172,7 +172,6 @@ bool SendDestroyStructure(STRUCTURE *s);
 bool SendBuildFinished(STRUCTURE *psStruct);
 bool sendLasSat(UBYTE player, STRUCTURE *psStruct, BASE_OBJECT *psObj);
 void sendStructureInfo(STRUCTURE *psStruct, STRUCTURE_INFO structureInfo, DROID_TEMPLATE *psTempl);
-bool SendFinishUnits(STRUCTURE *s);
 
 // droids . multibot
 bool SendDroid(DROID_TEMPLATE *pTemplate, uint32_t x, uint32_t y, uint8_t player, uint32_t id, const INITIAL_DROID_ORDERS *initialOrders);

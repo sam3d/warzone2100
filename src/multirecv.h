@@ -44,8 +44,6 @@ bool recvPositionRequest(NETQUEUE queue);
 void recvOptions(NETQUEUE queue);
 void sendOptions();
 
-bool recvFinishUnits(NETQUEUE queue);
-
 bool recvResearchStatus(NETQUEUE queue);
 bool recvLasSat(NETQUEUE queue);
 void recvStructureInfo(NETQUEUE queue);

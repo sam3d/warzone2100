@@ -122,8 +122,8 @@ bool recvGift(NETQUEUE queue)
 		break;
 	}
 
-	// If we are on the receiving end play an audio alert unless self-sent
-	if (bMultiPlayer && to == selectedPlayer && to != from)
+	// If we are on the receiving end play an audio alert.
+	if (bMultiPlayer && to == selectedPlayer)
 	{
 		audio_QueueTrack(audioTrack);
 	}
@@ -407,22 +407,13 @@ void giftPower(uint8_t from, uint8_t to, uint32_t amount, bool send)
 			usePower(from, value);
 			addPower(to, value);
 		}
-		else if (from == to)
-		{
-			// Self transfer, just complete silently
-			value = amount;
-			addPower(to, value);
-		}
 		else // for scripts etc that can give precise amounts
 		{
 			value = MIN(getPower(from), amount);
 			usePower(from, value);
 			addPower(to, value);
 		}
-
-		// Finally, if it's not a self transfer and you are the reciever, print
-		// out a recieved power notification!
-		if (from != ANYPLAYER && to == selectedPlayer && to != from)
+		if (from != ANYPLAYER && to == selectedPlayer)
 		{
 			CONPRINTF(ConsoleString, (ConsoleString, _("%s Gives You %d Power"), getPlayerName(from), value));
 		}

@@ -175,38 +175,6 @@ bool SendDestroyStructure(STRUCTURE *s)
 }
 
 // ////////////////////////////////////////////////////////////////////////////
-// Inform others that all of the units for a structure have completed
-bool SendFinishUnits(STRUCTURE *s)
-{
-	NETbeginEncode(NETgameQueue(selectedPlayer), GAME_DEBUG_FINISH_UNITS);
-	NETuint32_t(&s->id); // Struct to destroy
-	return NETend();
-}
-
-// Acknowledge the recieve of completed units
-bool recvFinishUnits(NETQUEUE queue)
-{
-	uint32_t structID;
-	STRUCTURE *psStruct;
-	FACTORY *psFactory;
-
-	NETbeginDecode(queue, GAME_DEBUG_FINISH_UNITS);
-	NETuint32_t(&structID);
-	NETend();
-
-	// Get the struct to complete the units for
-	psStruct = IdToStruct(structID, ANYPLAYER);
-
-	if (psStruct && psStruct->pStructureType->type == REF_FACTORY)
-	{
-		psFactory = &psStruct->pFunctionality->factory;
-		psFactory->buildPointsRemaining = 0;
-	}
-
-	return true;
-}
-
-// ////////////////////////////////////////////////////////////////////////////
 // acknowledge the destruction of a structure, from another player.
 bool recvDestroyStructure(NETQUEUE queue)
 {
@@ -216,6 +184,12 @@ bool recvDestroyStructure(NETQUEUE queue)
 	NETbeginDecode(queue, GAME_DEBUG_REMOVE_STRUCTURE);
 	NETuint32_t(&structID);
 	NETend();
+
+	if (!getDebugMappingStatus() && bMultiPlayer)
+	{
+		debug(LOG_WARNING, "Failed to remove structure for player %u.", NetPlay.players[queue.index].position);
+		return false;
+	}
 
 	// Struct to destroy
 	psStruct = IdToStruct(structID, ANYPLAYER);
