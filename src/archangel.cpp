@@ -14,9 +14,10 @@
 #include "multiplay.h"
 #include "multigifts.h"
 
-void print(char* msg)
+void print(char* msg, bool keepHistory = false)
 {
-    CONPRINTF(ConsoleString, (ConsoleString, msg));
+    if (keepHistory) console(msg);
+    else CONPRINTF(ConsoleString, (ConsoleString, msg));
 }
 
 ARCHANGEL::ARCHANGEL()
@@ -63,7 +64,7 @@ void ARCHANGEL::addPower(int amount)
 {
     if (!isEnabled) return;
 
-    giftPower(selectedPlayer, selectedPlayer, 1000, true);
+    giftPower(selectedPlayer, selectedPlayer, amount, true);
 }
 
 void ARCHANGEL::finishResearch()
@@ -151,8 +152,16 @@ void ARCHANGEL::finishUnits()
     {
     	if (psCurr->pStructureType->type == REF_FACTORY)
     	{
-    		psFactory = &psCurr->pFunctionality->factory; // Get the factory
-            psFactory->buildPointsRemaining = 0; // Finish the build points
+            psFactory = &psCurr->pFunctionality->factory;
+
+            if (!bMultiMessages)
+            {
+                psFactory->buildPointsRemaining = 0; // Single player game
+            }
+            else
+            {
+
+            }
     	}
     }
 }
