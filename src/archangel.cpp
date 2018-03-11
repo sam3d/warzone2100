@@ -11,6 +11,7 @@
 #include "research.h"
 #include "structure.h"
 #include "droid.h"
+#include "netplay.h"
 #include "multiplay.h"
 #include "multigifts.h"
 
@@ -60,24 +61,48 @@ bool ARCHANGEL::parseCommand(const char *msg)
 	return (isEnableRequest || isDisableRequest);
 }
 
+/*
+ * Send an example message to confirm whether or not clients are able to take in
+ * Archangel messages in the protocol specification
+ */
+bool sendExample()
+{
+	NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
+	// NETuint8_t(&player);
+	// NETuint32_t(&index);
+	NETend();
+
+	return true;
+}
+
+bool ARCHANGEL::receive(NETQUEUE queue)
+{
+    print("Received an archangel message");
+    return true;
+}
+
 void ARCHANGEL::addPower(int amount)
 {
     if (!isEnabled) return;
+    sendExample();
 }
 
 void ARCHANGEL::finishResearch()
 {
     if (!isEnabled) return;
+    sendExample();
 }
 
 void ARCHANGEL::destroySelected()
 {
     if (!isEnabled) return;
+    sendExample();
 }
 
 void ARCHANGEL::finishUnits()
 {
     if (!isEnabled) return;
+    sendExample();
 }
 
 ARCHANGEL *Archangel = new ARCHANGEL();

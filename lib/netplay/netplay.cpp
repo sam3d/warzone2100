@@ -3682,6 +3682,10 @@ const char *messageTypeToString(unsigned messageType_)
 	case GAME_DEBUG_REMOVE_STRUCTURE:   return "GAME_DEBUG_REMOVE_STRUCTURE";
 	case GAME_DEBUG_REMOVE_FEATURE:     return "GAME_DEBUG_REMOVE_FEATURE";
 	case GAME_DEBUG_FINISH_RESEARCH:    return "GAME_DEBUG_FINISH_RESEARCH";
+
+	// Archangel network message
+	case GAME_ARCHANGEL:                return "GAME_ARCHANGEL";
+
 	// End of redundant messages.
 	case GAME_MAX_TYPE:                 return "GAME_MAX_TYPE";
 	}

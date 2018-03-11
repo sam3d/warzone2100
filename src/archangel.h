@@ -3,6 +3,8 @@
  */
 #pragma once
 
+#include "lib/netplay/nettypes.h"
+
 class ARCHANGEL
 {
 public:
@@ -15,6 +17,8 @@ public:
     bool toggle();  // Toggle archangel and get new enabled status
 
     bool parseCommand(const char *msg); // Parse command to enable or disable
+
+    bool receive(NETQUEUE queue); // Received an archangel message
 
     void addPower(int amount); // Add power to the current user
     void finishResearch();     // Finish all active research
