@@ -53,34 +53,22 @@ bool ARCHANGEL::parseCommand(const char *msg)
     bool isEnableRequest = (strcmp(msg, "archangel up") == 0);
 	bool isDisableRequest = (strcmp(msg, "fall") == 0);
 
-	if (isEnableRequest)
-	{
-		enable();
-	}
-	else if (isDisableRequest)
-	{
-		disable();
-	}
+	if (isEnableRequest) enable();
+	else if (isDisableRequest) disable();
 
 	return (isEnableRequest || isDisableRequest);
 }
 
 void ARCHANGEL::addPower(int amount)
 {
-    if (!isEnabled)
-    {
-        return;
-    }
+    if (!isEnabled) return;
 
     giftPower(selectedPlayer, selectedPlayer, 1000, true);
 }
 
 void ARCHANGEL::finishResearch()
 {
-    if (!isEnabled)
-    {
-        return;
-    }
+    if (!isEnabled) return;
 
     STRUCTURE	*psCurr;
 
@@ -114,10 +102,7 @@ void ARCHANGEL::finishResearch()
 
 void ARCHANGEL::destroySelected()
 {
-    if (!isEnabled)
-    {
-        return;
-    }
+    if (!isEnabled) return;
 
     DROID		*psCDroid, *psNDroid;
 	STRUCTURE	*psCStruct, *psNStruct;
@@ -157,10 +142,7 @@ void ARCHANGEL::destroySelected()
 
 void ARCHANGEL::finishUnits()
 {
-    if (!isEnabled)
-    {
-        return;
-    }
+    if (!isEnabled) return;
 
     STRUCTURE *psCurr;
     FACTORY   *psFactory;
