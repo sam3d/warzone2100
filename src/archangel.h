@@ -1,8 +1,7 @@
 /*
  * archangel.h
  */
-#ifndef __INCLUDED_SRC_ARCHANGEL_H__
-#define __INCLUDED_SRC_ARCHANGEL_H__
+#pragma once
 
 class ARCHANGEL
 {
@@ -24,5 +23,3 @@ public:
 };
 
 extern ARCHANGEL *Archangel;
-
-#endif
