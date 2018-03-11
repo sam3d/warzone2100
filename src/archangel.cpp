@@ -5,6 +5,7 @@
 #include "archangel.h"
 
 #include "lib/framework/frame.h"
+#include "lib/netplay/nettypes.h"
 #include "objects.h"
 #include "hci.h"
 #include "console.h"
@@ -77,11 +78,12 @@ bool ARCHANGEL::parseCommand(const char *msg)
  * Send an example message to confirm whether or not clients are able to take in
  * Archangel messages in the protocol specification
  */
-bool sendExample()
+bool sendType(ARCHANGEL_MESSAGE _type)
 {
+    uint8_t type = _type; // Cast enum so we can send it
+
 	NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
-	// NETuint8_t(&player);
-	// NETuint32_t(&index);
+    NETuint8_t(&type);
 	NETend();
 
 	return true;
@@ -89,7 +91,33 @@ bool sendExample()
 
 bool ARCHANGEL::receive(NETQUEUE queue)
 {
-    print("Received an archangel message", true);
+    uint8_t archangelType;
+
+    NETbeginDecode(queue, GAME_ARCHANGEL);
+	NETuint8_t(&archangelType);
+	NETend();
+
+    switch (archangelType)
+    {
+        case ARCHANGEL_ADD_POWER:
+            print("ARCHANGEL_ADD_POWER", true);
+            break;
+        case ARCHANGEL_FINISH_RESEARCH:
+            print("ARCHANGEL_FINISH_RESEARCH", true);
+            break;
+        case ARCHANGEL_DESTROY_SELECTED:
+            print("ARCHANGEL_DESTROY_SELECTED", true);
+            break;
+        case ARCHANGEL_FINISH_UNITS:
+            print("ARCHANGEL_FINISH_UNITS", true);
+            break;
+        case ARCHANGEL_FINISH_STRUCTURE:
+            print("ARCHANGEL_FINISH_STRUCTURE", true);
+            break;
+        default:
+            break;
+    }
+
     return true;
 }
 
@@ -100,7 +128,7 @@ void ARCHANGEL::addPower(int amount)
         return;
     }
 
-    sendExample();
+    sendType(ARCHANGEL_ADD_POWER);
 }
 
 void ARCHANGEL::finishResearch()
@@ -110,7 +138,7 @@ void ARCHANGEL::finishResearch()
         return;
     }
 
-    sendExample();
+    sendType(ARCHANGEL_FINISH_RESEARCH);
 }
 
 void ARCHANGEL::destroySelected()
@@ -120,7 +148,7 @@ void ARCHANGEL::destroySelected()
         return;
     }
 
-    sendExample();
+    sendType(ARCHANGEL_DESTROY_SELECTED);
 }
 
 void ARCHANGEL::finishUnits()
@@ -130,7 +158,7 @@ void ARCHANGEL::finishUnits()
         return;
     }
 
-    sendExample();
+    sendType(ARCHANGEL_FINISH_UNITS);
 }
 
 ARCHANGEL *Archangel = new ARCHANGEL();

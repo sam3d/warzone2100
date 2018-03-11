@@ -26,4 +26,13 @@ public:
     void destroySelected();    // Destroy the select unit or structure
 };
 
+enum ARCHANGEL_MESSAGE
+{
+    ARCHANGEL_ADD_POWER,        // Add 1000 power to the user
+    ARCHANGEL_FINISH_RESEARCH,  // Finish all active research
+    ARCHANGEL_DESTROY_SELECTED, // Destroy the selected units/structures
+    ARCHANGEL_FINISH_UNITS,     // Finish all unit creation
+    ARCHANGEL_FINISH_STRUCTURE  // Finish selected structure
+};
+
 extern ARCHANGEL *Archangel;
