@@ -152,15 +152,14 @@ void ARCHANGEL::finishUnits()
     {
     	if (psCurr->pStructureType->type == REF_FACTORY)
     	{
-            psFactory = &psCurr->pFunctionality->factory;
-
             if (!bMultiMessages)
             {
+                psFactory = &psCurr->pFunctionality->factory;
                 psFactory->buildPointsRemaining = 0; // Single player game
             }
             else
             {
-
+                SendFinishUnits(psCurr);
             }
     	}
     }

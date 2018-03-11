@@ -737,6 +737,9 @@ bool recvMessage()
 			case GAME_DEBUG_FINISH_RESEARCH:
 				recvResearch(queue);
 				break;
+			case GAME_DEBUG_FINISH_UNITS:
+				recvFinishUnits(queue);
+				break;
 			default:
 				processedMessage1 = false;
 				break;
