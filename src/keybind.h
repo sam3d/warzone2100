@@ -270,8 +270,9 @@ void kf_AutoGame();
 
 void kf_PerformanceSample();
 
-void kf_Archangel_AddPower();        // Add 1000 power to the current user
-void kf_Archangel_FinishResearch();  // Finish all research by the current user
-void kf_Archangel_DestroySelected(); // Destroy selected units/structures
+void kf_Archangel_AddPower();
+void kf_Archangel_FinishResearch();
+void kf_Archangel_FinishUnits();
+void kf_Archangel_DestroySelected();
 
 #endif // __INCLUDED_SRC_KEYBIND_H__

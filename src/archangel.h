@@ -19,6 +19,7 @@ public:
 
     void addPower(int amount); // Add power to the current user
     void finishResearch();     // Finish all active research
+    void finishUnits();        // Finish all current unit creations
     void destroySelected();    // Destroy the select unit or structure
 };
 

@@ -155,4 +155,25 @@ void ARCHANGEL::destroySelected()
 	}
 }
 
+void ARCHANGEL::finishUnits()
+{
+    if (!isEnabled)
+    {
+        return;
+    }
+
+    STRUCTURE *psCurr;
+    FACTORY   *psFactory;
+
+    for (psCurr = interfaceStructList(); psCurr; psCurr = psCurr->psNext)
+    {
+    	if (psCurr->pStructureType->type == REF_FACTORY)
+    	{
+    		psFactory = &psCurr->pFunctionality->factory; // Get the factory
+                    psFactory->buildPointsRemaining = 0; // Finish the build points
+                    sendStructureInfo(psCurr, STRUCTUREINFO_MANUFACTURE, nullptr);
+    	}
+    }
+}
+
 ARCHANGEL *Archangel = new ARCHANGEL();

@@ -234,6 +234,7 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_SelectAllArmedVTOLs, "SelectAllArmedVTOLs"},
 	{kf_Archangel_AddPower, "Archangel_AddPower"},
 	{kf_Archangel_FinishResearch, "Archangel_FinishResearch"},
+	{kf_Archangel_FinishUnits, "Archangel_FinishUnits"},
 	{kf_Archangel_DestroySelected, "Archangel_DestroySelected"}
 };
 
@@ -464,6 +465,7 @@ void keyInitMappings(bool bForceDefaults)
 	// Cheat key maps
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Archangel_AddPower, N_("Add power"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Archangel_FinishResearch, N_("Finish research"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_U, KEYMAP_PRESSED, kf_Archangel_FinishUnits, N_("Finish units"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Archangel_DestroySelected, N_("Destroy selected"));
 
 	saveKeyMap();	// save out the default key mappings.

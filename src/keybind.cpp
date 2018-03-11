@@ -2767,6 +2767,11 @@ void kf_Archangel_FinishResearch()
 	Archangel->finishResearch();
 }
 
+void kf_Archangel_FinishUnits()
+{
+	Archangel->finishUnits();
+}
+
 void kf_Archangel_DestroySelected()
 {
 	Archangel->destroySelected();
