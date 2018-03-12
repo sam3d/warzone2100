@@ -76,7 +76,7 @@ bool ARCHANGEL::parseCommand(const char *msg)
 
 void sendType(ARCHANGEL_MESSAGE _type)
 {
-    uint8_t type;
+    uint8_t type = _type; // Cast enum to uint8 so we can send it
 
     NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
     NETuint8_t(&type);
