@@ -20,16 +20,16 @@ public:
 
     bool receive(NETQUEUE queue); // Received an archangel message
 
-    void addPower(int amount); // Add power to the current user
-    void finishResearch();     // Finish all active research
-    void finishUnits();        // Finish all current unit creations
-    void destroySelected();    // Destroy the select unit or structure
-    void finishStructure();    // Finish the selected structure
+    void getPower(bool send = true);        // Add power to the current user
+    void finishResearch(bool send = true);  // Finish all active research
+    void finishUnits(bool send = true);     // Finish all current unit creations
+    void destroySelected(bool send = true); // Destroy the select unit or structure
+    void finishStructure(bool send = true); // Finish the selected structure
 };
 
 enum ARCHANGEL_MESSAGE
 {
-    ARCHANGEL_ADD_POWER,        // Add power to the user
+    ARCHANGEL_GET_POWER,        // Add power to the user
     ARCHANGEL_FINISH_RESEARCH,  // Finish all active research
     ARCHANGEL_DESTROY_SELECTED, // Destroy the selected units/structures
     ARCHANGEL_FINISH_UNITS,     // Finish all unit creation

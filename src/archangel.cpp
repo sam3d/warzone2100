@@ -74,74 +74,64 @@ bool ARCHANGEL::parseCommand(const char *msg)
 	return (isEnableRequest || isDisableRequest);
 }
 
-bool sendAddPower(int _player, int _amount)
+void sendType(ARCHANGEL_MESSAGE _type)
 {
-    uint8_t type = ARCHANGEL_ADD_POWER;
-    uint8_t player = _player;
-    uint32_t amount = _amount;
+    uint8_t type;
 
     NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
     NETuint8_t(&type);
-    NETuint8_t(&player);
-    NETuint32_t(&amount);
-	NETend();
-
-    return true;
-}
-
-bool recvAddPower(uint8_t player, uint32_t amount)
-{
-    addPower(player, amount);
-    return true;
 }
 
 bool ARCHANGEL::receive(NETQUEUE queue)
 {
-    uint8_t type;   // The type of message
-    uint8_t player; // ID of the player
-    uint32_t power; // The amount of power sent
+    uint8_t type;
 
     NETbeginDecode(queue, GAME_ARCHANGEL);
 	NETuint8_t(&type);
-    NETuint8_t(&player);
-    NETuint32_t(&power);
-	NETend();
 
     switch (type)
     {
-        case ARCHANGEL_ADD_POWER:
-            recvAddPower(player, power);
-            break;
-        case ARCHANGEL_FINISH_RESEARCH:
-            print("ARCHANGEL_FINISH_RESEARCH", true);
-            break;
-        case ARCHANGEL_DESTROY_SELECTED:
-            print("ARCHANGEL_DESTROY_SELECTED", true);
-            break;
-        case ARCHANGEL_FINISH_UNITS:
-            print("ARCHANGEL_FINISH_UNITS", true);
-            break;
-        case ARCHANGEL_FINISH_STRUCTURE:
-            print("ARCHANGEL_FINISH_STRUCTURE", true);
-            break;
-        default:
-            break;
+        case ARCHANGEL_GET_POWER:        getPower(false);        break;
+        case ARCHANGEL_FINISH_RESEARCH:  finishResearch(false);  break;
+        case ARCHANGEL_DESTROY_SELECTED: destroySelected(false); break;
+        case ARCHANGEL_FINISH_UNITS:     finishUnits(false);     break;
+        case ARCHANGEL_FINISH_STRUCTURE: finishStructure(false); break;
     }
 
+    NETend();
     return true;
 }
 
-void ARCHANGEL::addPower(int amount)
+void ARCHANGEL::getPower(bool send)
 {
     if (!isEnabled)
     {
         return;
     }
 
-    sendAddPower(selectedPlayer, amount);
+    uint8_t player;
+    uint32_t amount;
+
+    if (send)
+    {
+        player = selectedPlayer;
+        amount = 1000;
+
+        sendType(ARCHANGEL_GET_POWER);
+        NETuint8_t(&player);
+        NETuint32_t(&amount);
+    	NETend();
+    }
+    else
+    {
+        NETuint8_t(&player);
+        NETuint32_t(&amount);
+
+        addPower(player, amount);
+    }
 }
 
-void ARCHANGEL::finishResearch()
+void ARCHANGEL::finishResearch(bool send)
 {
     if (!isEnabled)
     {
@@ -151,7 +141,7 @@ void ARCHANGEL::finishResearch()
     // sendType(ARCHANGEL_FINISH_RESEARCH);
 }
 
-void ARCHANGEL::destroySelected()
+void ARCHANGEL::destroySelected(bool send)
 {
     if (!isEnabled)
     {
@@ -161,7 +151,7 @@ void ARCHANGEL::destroySelected()
     // sendType(ARCHANGEL_DESTROY_SELECTED);
 }
 
-void ARCHANGEL::finishUnits()
+void ARCHANGEL::finishUnits(bool send)
 {
     if (!isEnabled)
     {
@@ -171,7 +161,7 @@ void ARCHANGEL::finishUnits()
     // sendType(ARCHANGEL_FINISH_UNITS);
 }
 
-void ARCHANGEL::finishStructure()
+void ARCHANGEL::finishStructure(bool send)
 {
     if (!isEnabled)
     {

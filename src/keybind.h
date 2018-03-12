@@ -270,7 +270,7 @@ void kf_AutoGame();
 
 void kf_PerformanceSample();
 
-void kf_Archangel_AddPower();
+void kf_Archangel_GetPower();
 void kf_Archangel_FinishResearch();
 void kf_Archangel_FinishUnits();
 void kf_Archangel_DestroySelected();

@@ -2757,9 +2757,9 @@ void kf_BuildNextPage()
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
 }
 
-void kf_Archangel_AddPower()
+void kf_Archangel_GetPower()
 {
-	Archangel->addPower(1000);
+	Archangel->getPower();
 }
 
 void kf_Archangel_FinishResearch()
