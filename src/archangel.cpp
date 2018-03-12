@@ -161,4 +161,14 @@ void ARCHANGEL::finishUnits()
     sendType(ARCHANGEL_FINISH_UNITS);
 }
 
+void ARCHANGEL::finishStructure()
+{
+    if (!isEnabled)
+    {
+        return;
+    }
+
+    sendType(ARCHANGEL_FINISH_STRUCTURE);
+}
+
 ARCHANGEL *Archangel = new ARCHANGEL();

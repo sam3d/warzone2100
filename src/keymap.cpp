@@ -235,7 +235,8 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_Archangel_AddPower, "Archangel_AddPower"},
 	{kf_Archangel_FinishResearch, "Archangel_FinishResearch"},
 	{kf_Archangel_FinishUnits, "Archangel_FinishUnits"},
-	{kf_Archangel_DestroySelected, "Archangel_DestroySelected"}
+	{kf_Archangel_DestroySelected, "Archangel_DestroySelected"},
+	{kf_Archangel_FinishStructure, "Archangel_FinishStructure"}
 };
 
 KeyMapSaveEntry const *keymapEntryByFunction(void (*function)())
@@ -394,7 +395,7 @@ void keyInitMappings(bool bForceDefaults)
 	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LCTRL,  KEY_RETURN, KEYMAP_PRESSED, kf_SendTeamMessage,       N_("Send Team Text Message"));
 	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LALT,   KEY_H,      KEYMAP_PRESSED, kf_AddHelpBlip,           N_("Drop a beacon"));
 
-	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LALT,   KEY_S,   KEYMAP_PRESSED,  kf_ToggleShadows,        N_("Toggles shadows"));
+	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LALT,   KEY_W,   KEYMAP_PRESSED,  kf_ToggleShadows,        N_("Toggles shadows"));
 	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LALT,   KEY_T,   KEYMAP_PRESSED,  kf_toggleTrapCursor,     N_("Trap cursor"));
 	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LCTRL,  KEY_TAB, KEYMAP_PRESSED,  kf_ToggleRadarTerrain,   N_("Toggle radar terrain"));
 	keyAddMapping(KEYMAP_ASSIGNABLE, KEY_LSHIFT, KEY_TAB, KEYMAP_PRESSED,  kf_ToggleRadarAllyEnemy, N_("Toggle ally-enemy radar view"));
@@ -467,6 +468,8 @@ void keyInitMappings(bool bForceDefaults)
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Archangel_FinishResearch, N_("Finish research"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_U, KEYMAP_PRESSED, kf_Archangel_FinishUnits, N_("Finish units"));
 	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Archangel_DestroySelected, N_("Destroy selected"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_S, KEYMAP_PRESSED, kf_Archangel_FinishStructure, N_("Finish structure"));
+
 
 	saveKeyMap();	// save out the default key mappings.
 }

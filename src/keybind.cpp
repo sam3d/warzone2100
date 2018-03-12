@@ -2776,3 +2776,8 @@ void kf_Archangel_DestroySelected()
 {
 	Archangel->destroySelected();
 }
+
+void kf_Archangel_FinishStructure()
+{
+	Archangel->finishStructure();
+}

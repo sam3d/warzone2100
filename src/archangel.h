@@ -24,11 +24,12 @@ public:
     void finishResearch();     // Finish all active research
     void finishUnits();        // Finish all current unit creations
     void destroySelected();    // Destroy the select unit or structure
+    void finishStructure();    // Finish the selected structure
 };
 
 enum ARCHANGEL_MESSAGE
 {
-    ARCHANGEL_ADD_POWER,        // Add 1000 power to the user
+    ARCHANGEL_ADD_POWER,        // Add power to the user
     ARCHANGEL_FINISH_RESEARCH,  // Finish all active research
     ARCHANGEL_DESTROY_SELECTED, // Destroy the selected units/structures
     ARCHANGEL_FINISH_UNITS,     // Finish all unit creation
