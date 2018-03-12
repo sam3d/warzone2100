@@ -152,7 +152,7 @@ void ARCHANGEL::finishResearch(bool send)
     			{
     				index = ((RESEARCH *)pSubject)->index; // Get the index of the research item
 
-                    // Send the research information
+                    // Send research information
                     sendTypeHeader(ARCHANGEL_FINISH_RESEARCH);
                     NETuint8_t(&player);
                 	NETuint32_t(&index);
@@ -180,13 +180,66 @@ void ARCHANGEL::finishResearch(bool send)
 
 void ARCHANGEL::destroySelected(bool send)
 {
+    DROID     *psCDroid, *psNDroid;
+    STRUCTURE *psCStruct, *psNStruct;
+    uint32_t  droidId;
+    uint32_t  structId;
+
     if (send && isEnabled)
     {
+        for (psCDroid = apsDroidLists[selectedPlayer]; psCDroid; psCDroid = psNDroid)
+        {
+            psNDroid = psCDroid->psNext;
+            if (psCDroid->selected)
+            {
+                droidId = psCDroid->id; // Get the droid id
 
+                // Send droid destroy message
+                sendTypeHeader(ARCHANGEL_DESTROY_SELECTED);
+                NETuint32_t(&droidId);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
+
+        for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
+        {
+            psNStruct = psCStruct->psNext;
+            if (psCStruct->selected)
+            {
+                structId = psCStruct->id; // Get the struct id
+
+                // Send struct destroy message
+                sendTypeHeader(ARCHANGEL_DESTROY_SELECTED);
+                NETuint32_t(&droidId);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
     }
     else if (!send)
     {
+        NETuint32_t(&droidId);
+        NETuint32_t(&structId);
 
+        psCDroid = IdToDroid(droidId, ANYPLAYER);
+        psCStruct = IdToStruct(structId, ANYPLAYER);
+
+        // Destroy the droid
+        if (psCDroid && !psCDroid->died)
+        {
+            turnOffMultiMsg(true);
+            destroyDroid(psCDroid, gameTime - deltaGameTime + 1);
+            turnOffMultiMsg(false);
+        }
+
+        // Destroy the struct
+        if (psCStruct)
+        {
+            turnOffMultiMsg(true);
+            destroyStruct(psCStruct, gameTime - deltaGameTime + 1);
+            turnOffMultiMsg(false);
+        }
     }
 }
 
