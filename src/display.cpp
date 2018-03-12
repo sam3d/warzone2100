@@ -1770,7 +1770,7 @@ static void dealWithLMBStructure(STRUCTURE *psStructure, SELECTION_TYPE selectio
 		}
 
 	}
-	else if ((psStructure->status == SS_BUILT) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
+	else if ((psStructure->status == SS_BUILT || Archangel->isEnabled) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
 	         (psStructure->pStructureType->type == REF_RESOURCE_EXTRACTOR) &&
 	         selection == SC_INVALID && ownStruct)
 	{
