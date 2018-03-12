@@ -132,7 +132,6 @@ void ARCHANGEL::finishResearch(bool send)
 {
     uint8_t         player;
     uint32_t        index;
-    int             i;
     PLAYER_RESEARCH *pPlayerRes;
     STRUCTURE       *psCurr;
 
@@ -181,7 +180,7 @@ void ARCHANGEL::finishResearch(bool send)
 void ARCHANGEL::finishUnits(bool send)
 {
     uint32_t  structId;
-    STRUCTURE *psStruct, *psNextStruct;
+    STRUCTURE *psStruct;
     FACTORY   *psFactory;
 
     if (send && isEnabled)
@@ -280,13 +279,62 @@ void ARCHANGEL::destroySelected(bool send)
 
 void ARCHANGEL::healSelected(bool send)
 {
+    DROID     *psDroid, *psNextDroid;
+    STRUCTURE *psStruct, *psNextStruct;
+    uint32_t  droidId;
+    uint32_t  structId;
+
     if (send && isEnabled)
     {
+        for (psDroid = apsDroidLists[selectedPlayer]; psDroid; psDroid = psNextDroid)
+        {
+            psNextDroid = psDroid->psNext;
+            if (psDroid->selected)
+            {
+                droidId = psDroid->id; // Get the droid id
 
+                // Send droid heal message
+                sendTypeHeader(ARCHANGEL_HEAL_SELECTED);
+                NETuint32_t(&droidId);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
+
+        for (psStruct = apsStructLists[selectedPlayer]; psStruct; psStruct = psNextStruct)
+        {
+            psNextStruct = psStruct->psNext;
+            if (psStruct->selected)
+            {
+                structId = psStruct->id; // Get the struct id
+
+                // Send struct heal message
+                sendTypeHeader(ARCHANGEL_HEAL_SELECTED);
+                NETuint32_t(&droidId);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
     }
     else if (!send)
     {
+        NETuint32_t(&droidId);
+        NETuint32_t(&structId);
 
+        psDroid = IdToDroid(droidId, ANYPLAYER);
+        psStruct = IdToStruct(structId, ANYPLAYER);
+
+        // Heal the droid
+        if (psDroid)
+        {
+
+        }
+
+        // Heal the struct
+        if (psStruct)
+        {
+            
+        }
     }
 }
 
