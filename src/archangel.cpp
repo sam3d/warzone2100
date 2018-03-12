@@ -14,7 +14,7 @@
 #include "droid.h"
 #include "netplay.h"
 #include "multiplay.h"
-#include "multigifts.h"
+#include "power.h"
 
 void print(char* msg, bool keepHistory = false)
 {
@@ -74,33 +74,43 @@ bool ARCHANGEL::parseCommand(const char *msg)
 	return (isEnableRequest || isDisableRequest);
 }
 
-/*
- * Send an example message to confirm whether or not clients are able to take in
- * Archangel messages in the protocol specification
- */
-bool sendType(ARCHANGEL_MESSAGE _type)
+bool sendAddPower(int _player, int _amount)
 {
-    uint8_t type = _type; // Cast enum so we can send it
+    uint8_t type = ARCHANGEL_ADD_POWER;
+    uint8_t player = _player;
+    uint32_t amount = _amount;
 
-	NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
+    NETbeginEncode(NETgameQueue(selectedPlayer), GAME_ARCHANGEL);
     NETuint8_t(&type);
+    NETuint8_t(&player);
+    NETuint32_t(&amount);
 	NETend();
 
-	return true;
+    return true;
+}
+
+bool recvAddPower(uint8_t player, uint32_t amount)
+{
+    addPower(player, amount);
+    return true;
 }
 
 bool ARCHANGEL::receive(NETQUEUE queue)
 {
-    uint8_t archangelType;
+    uint8_t type;   // The type of message
+    uint8_t player; // ID of the player
+    uint32_t power; // The amount of power sent
 
     NETbeginDecode(queue, GAME_ARCHANGEL);
-	NETuint8_t(&archangelType);
+	NETuint8_t(&type);
+    NETuint8_t(&player);
+    NETuint32_t(&power);
 	NETend();
 
-    switch (archangelType)
+    switch (type)
     {
         case ARCHANGEL_ADD_POWER:
-            print("ARCHANGEL_ADD_POWER", true);
+            recvAddPower(player, power);
             break;
         case ARCHANGEL_FINISH_RESEARCH:
             print("ARCHANGEL_FINISH_RESEARCH", true);
@@ -128,7 +138,7 @@ void ARCHANGEL::addPower(int amount)
         return;
     }
 
-    sendType(ARCHANGEL_ADD_POWER);
+    sendAddPower(selectedPlayer, amount);
 }
 
 void ARCHANGEL::finishResearch()
@@ -138,7 +148,7 @@ void ARCHANGEL::finishResearch()
         return;
     }
 
-    sendType(ARCHANGEL_FINISH_RESEARCH);
+    // sendType(ARCHANGEL_FINISH_RESEARCH);
 }
 
 void ARCHANGEL::destroySelected()
@@ -148,7 +158,7 @@ void ARCHANGEL::destroySelected()
         return;
     }
 
-    sendType(ARCHANGEL_DESTROY_SELECTED);
+    // sendType(ARCHANGEL_DESTROY_SELECTED);
 }
 
 void ARCHANGEL::finishUnits()
@@ -158,7 +168,7 @@ void ARCHANGEL::finishUnits()
         return;
     }
 
-    sendType(ARCHANGEL_FINISH_UNITS);
+    // sendType(ARCHANGEL_FINISH_UNITS);
 }
 
 void ARCHANGEL::finishStructure()
@@ -168,7 +178,7 @@ void ARCHANGEL::finishStructure()
         return;
     }
 
-    sendType(ARCHANGEL_FINISH_STRUCTURE);
+    // sendType(ARCHANGEL_FINISH_STRUCTURE);
 }
 
 ARCHANGEL *Archangel = new ARCHANGEL();
