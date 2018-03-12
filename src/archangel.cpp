@@ -327,13 +327,13 @@ void ARCHANGEL::healSelected(bool send)
         // Heal the droid
         if (psDroid)
         {
-
+            // psDroid->archangelHeal = true;
         }
 
         // Heal the struct
         if (psStruct)
         {
-            
+            psStruct->archangelHeal = true;
         }
     }
 }

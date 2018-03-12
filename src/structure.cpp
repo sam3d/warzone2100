@@ -795,10 +795,10 @@ void structureBuild(STRUCTURE *psStruct, DROID *psDroid, int buildPoints, int bu
 		}
 
 		//only play the sound if selected player
-		if (psDroid &&
+		if (psStruct->archangelHeal || (psDroid &&
 		    psStruct->player == selectedPlayer
 		    && (psDroid->order.type != DORDER_LINEBUILD
-		        || map_coord(psDroid->order.pos) == map_coord(psDroid->order.pos2)))
+		        || map_coord(psDroid->order.pos) == map_coord(psDroid->order.pos2))))
 		{
 			audio_QueueTrackPos(ID_SOUND_STRUCTURE_COMPLETED,
 			                    psStruct->pos.x, psStruct->pos.y, psStruct->pos.z);
@@ -3713,6 +3713,45 @@ void structureUpdate(STRUCTURE *psBuilding, bool mission)
 					psBuilding->lastResistance = ACTION_START_TIME;
 				}
 			}
+		}
+	}
+
+	if (psBuilding->archangelHeal)
+	{
+		int healAmount = 30;  // Heal speed
+		int buildAmount = 20; // Build speed
+
+		if (psBuilding->status != SS_BUILT)
+		{
+			structureBuild(psBuilding, nullptr, buildAmount, 0);
+		}
+		else if (psBuilding->body < structureBody(psBuilding))
+		{
+			psBuilding->body = clip(psBuilding->body + healAmount, 0, structureBody(psBuilding));
+		}
+		else
+		{
+			// Heal/build must be complete, disable
+			psBuilding->archangelHeal = false;
+		}
+
+		// Add the blue flashing effect
+		if (bMultiPlayer && ONEINTEN && !mission)
+		{
+			Vector3i position;
+			Vector3f *point;
+			SDWORD	realY;
+			UDWORD	pointIndex;
+
+			pointIndex = rand() % (psBuilding->sDisplay.imd->points.size() - 1);
+			point = &(psBuilding->sDisplay.imd->points.at(pointIndex));
+			position.x = psBuilding->pos.x + point->x;
+			realY = structHeightScale(psBuilding) * point->y;
+			position.y = psBuilding->pos.z + realY;
+			position.z = psBuilding->pos.y - point->z;
+
+			effectSetSize(30);
+			addEffect(&position, EFFECT_EXPLOSION, EXPLOSION_TYPE_SPECIFIED, true, getImdFromIndex(MI_PLASMA), 0, gameTime - deltaGameTime + rand() % deltaGameTime);
 		}
 	}
 
