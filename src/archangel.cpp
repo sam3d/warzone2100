@@ -180,19 +180,19 @@ void ARCHANGEL::finishResearch(bool send)
 
 void ARCHANGEL::destroySelected(bool send)
 {
-    DROID     *psCDroid, *psNDroid;
-    STRUCTURE *psCStruct, *psNStruct;
+    DROID     *psDroid, *psNextDroid;
+    STRUCTURE *psStruct, *psNextStruct;
     uint32_t  droidId;
     uint32_t  structId;
 
     if (send && isEnabled)
     {
-        for (psCDroid = apsDroidLists[selectedPlayer]; psCDroid; psCDroid = psNDroid)
+        for (psDroid = apsDroidLists[selectedPlayer]; psDroid; psDroid = psNextDroid)
         {
-            psNDroid = psCDroid->psNext;
-            if (psCDroid->selected)
+            psNextDroid = psDroid->psNext;
+            if (psDroid->selected)
             {
-                droidId = psCDroid->id; // Get the droid id
+                droidId = psDroid->id; // Get the droid id
 
                 // Send droid destroy message
                 sendTypeHeader(ARCHANGEL_DESTROY_SELECTED);
@@ -202,12 +202,12 @@ void ARCHANGEL::destroySelected(bool send)
             }
         }
 
-        for (psCStruct = apsStructLists[selectedPlayer]; psCStruct; psCStruct = psNStruct)
+        for (psStruct = apsStructLists[selectedPlayer]; psStruct; psStruct = psNextStruct)
         {
-            psNStruct = psCStruct->psNext;
-            if (psCStruct->selected)
+            psNextStruct = psStruct->psNext;
+            if (psStruct->selected)
             {
-                structId = psCStruct->id; // Get the struct id
+                structId = psStruct->id; // Get the struct id
 
                 // Send struct destroy message
                 sendTypeHeader(ARCHANGEL_DESTROY_SELECTED);
@@ -222,22 +222,22 @@ void ARCHANGEL::destroySelected(bool send)
         NETuint32_t(&droidId);
         NETuint32_t(&structId);
 
-        psCDroid = IdToDroid(droidId, ANYPLAYER);
-        psCStruct = IdToStruct(structId, ANYPLAYER);
+        psDroid = IdToDroid(droidId, ANYPLAYER);
+        psStruct = IdToStruct(structId, ANYPLAYER);
 
         // Destroy the droid
-        if (psCDroid && !psCDroid->died)
+        if (psDroid && !psDroid->died)
         {
             turnOffMultiMsg(true);
-            destroyDroid(psCDroid, gameTime - deltaGameTime + 1);
+            destroyDroid(psDroid, gameTime - deltaGameTime + 1);
             turnOffMultiMsg(false);
         }
 
         // Destroy the struct
-        if (psCStruct)
+        if (psStruct)
         {
             turnOffMultiMsg(true);
-            destroyStruct(psCStruct, gameTime - deltaGameTime + 1);
+            destroyStruct(psStruct, gameTime - deltaGameTime + 1);
             turnOffMultiMsg(false);
         }
     }
@@ -245,13 +245,36 @@ void ARCHANGEL::destroySelected(bool send)
 
 void ARCHANGEL::finishUnits(bool send)
 {
+    uint32_t  structId;
+    STRUCTURE *psStruct, *psNextStruct;
+    FACTORY   *psFactory;
+
     if (send && isEnabled)
     {
+        for (psStruct = interfaceStructList(); psStruct; psStruct = psStruct->psNext)
+        {
+            if (psStruct->pStructureType->type == REF_FACTORY)
+            {
+                structId = psStruct->id; // Get the struct id
 
+                // Send the structure identifier
+                sendTypeHeader(ARCHANGEL_FINISH_UNITS);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
     }
     else if (!send)
     {
+        NETuint32_t(&structId);
 
+        psStruct = IdToStruct(structId, ANYPLAYER); // Get the struct to complete units for
+
+        if (psStruct && psStruct->pStructureType->type == REF_FACTORY)
+        {
+            psFactory = &psStruct->pFunctionality->factory; // Get the factory
+            psFactory->buildPointsRemaining = 0; // Make it so it can complete immediately
+        }
     }
 }
 
