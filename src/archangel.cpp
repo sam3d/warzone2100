@@ -60,9 +60,9 @@ bool ARCHANGEL::toggle()
 bool ARCHANGEL::parseCommand(const char *msg)
 {
     bool isEnableRequest = (strcmp(msg, "archangel up") == 0);
-	bool isDisableRequest = (strcmp(msg, "fall") == 0);
+    bool isDisableRequest = (strcmp(msg, "fall") == 0);
 
-	if (isEnableRequest)
+    if (isEnableRequest)
     {
         enable();
     }
@@ -71,7 +71,7 @@ bool ARCHANGEL::parseCommand(const char *msg)
         disable();
     }
 
-	return (isEnableRequest || isDisableRequest);
+    return (isEnableRequest || isDisableRequest);
 }
 
 void sendTypeHeader(ARCHANGEL_MESSAGE _type)
@@ -117,7 +117,7 @@ void ARCHANGEL::getPower(bool send)
         sendTypeHeader(ARCHANGEL_GET_POWER);
         NETuint8_t(&player);
         NETuint32_t(&amount);
-    	NETend();
+        NETend();
     }
     else if (!send)
     {
@@ -133,7 +133,7 @@ void ARCHANGEL::finishResearch(bool send)
     uint8_t         player;
     uint32_t        index;
     int             i;
-	PLAYER_RESEARCH *pPlayerRes;
+    PLAYER_RESEARCH *pPlayerRes;
     STRUCTURE       *psCurr;
 
     if (send && isEnabled)
@@ -150,15 +150,15 @@ void ARCHANGEL::finishResearch(bool send)
     			pSubject = ((RESEARCH_FACILITY *)psCurr->pFunctionality)->psSubject;
     			if (pSubject)
     			{
-    				index = ((RESEARCH *)pSubject)->index; // Get the index of the research item
+                    index = ((RESEARCH *)pSubject)->index; // Get the index of the research item
 
                     // Send research information
                     sendTypeHeader(ARCHANGEL_FINISH_RESEARCH);
                     NETuint8_t(&player);
-                	NETuint32_t(&index);
+                    NETuint32_t(&index);
                     NETend();
 
-    				intResearchFinished(psCurr); // Update the user interface
+                    intResearchFinished(psCurr); // Update the user interface
     			}
     		}
     	}
@@ -168,13 +168,13 @@ void ARCHANGEL::finishResearch(bool send)
         NETuint8_t(&player);
         NETuint32_t(&index);
 
-    	pPlayerRes = &asPlayerResList[player][index];
+        pPlayerRes = &asPlayerResList[player][index];
 
-    	if (!IsResearchCompleted(pPlayerRes))
-    	{
-    		MakeResearchCompleted(pPlayerRes);
-    		researchResult(index, player, false, nullptr, true);
-    	}
+        if (!IsResearchCompleted(pPlayerRes))
+        {
+            MakeResearchCompleted(pPlayerRes);
+            researchResult(index, player, false, nullptr, true);
+        }
     }
 }
 
