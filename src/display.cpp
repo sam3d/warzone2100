@@ -82,6 +82,8 @@
 #include "warzoneconfig.h"
 #include "lib/ivis_opengl/piematrix.h"
 
+#include "archangel.h"
+
 struct	_dragBox dragBox3D, wallDrag;
 
 #define POSSIBLE_SELECTIONS		14
@@ -1731,7 +1733,7 @@ static void dealWithLMBStructure(STRUCTURE *psStructure, SELECTION_TYPE selectio
 	}
 
 	/* Got to be built. Also, you can't 'select' derricks */
-	if (!specialOrderKeyDown() && (psStructure->status == SS_BUILT) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
+	if (!specialOrderKeyDown() && (psStructure->status == SS_BUILT || Archangel->isEnabled) && !psStructure->flags.test(OBJECT_FLAG_UNSELECTABLE) &&
 	    (psStructure->pStructureType->type != REF_RESOURCE_EXTRACTOR) && ownStruct)
 	{
 		if (bRightClickOrders)

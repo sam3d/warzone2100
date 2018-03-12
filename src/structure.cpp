@@ -86,6 +86,8 @@
 #include "random.h"
 #include <functional>
 
+#include "archangel.h"
+
 //Maximium slope of the terrain for building a structure
 #define MAX_INCLINE		50//80//40
 
@@ -3574,7 +3576,7 @@ void structureUpdate(STRUCTURE *psBuilding, bool mission)
 		aiUpdateStructure(psBuilding, mission);
 	}
 
-	if (psBuilding->status != SS_BUILT)
+	if (psBuilding->status != SS_BUILT && !Archangel->isEnabled)
 	{
 		if (psBuilding->selected)
 		{
