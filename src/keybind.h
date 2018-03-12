@@ -274,6 +274,6 @@ void kf_Archangel_GetPower();
 void kf_Archangel_FinishResearch();
 void kf_Archangel_FinishUnits();
 void kf_Archangel_DestroySelected();
-void kf_Archangel_FinishStructure();
+void kf_Archangel_HealSelected();
 
 #endif // __INCLUDED_SRC_KEYBIND_H__

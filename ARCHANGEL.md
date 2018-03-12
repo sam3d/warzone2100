@@ -14,6 +14,6 @@ With `hidden cheat mode` enabled, the following keyboard shortcuts work:
 
 - **Alt-R**: (research) Complete all active research
 - **Alt-P**: (power) Get 1000 power
-- **Alt-D**: (destroy) Destroy the selected unit/structure
 - **Alt-U**: (units) Complete all units being constructed
-- **Alt-S**: (structure) Complete selected structure
+- **Alt-D**: (destroy) Destroy the selected unit/structure
+- **Alt-H**: (heal) Heal the selected unit/structure

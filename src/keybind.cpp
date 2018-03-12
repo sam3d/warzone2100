@@ -2777,7 +2777,7 @@ void kf_Archangel_DestroySelected()
 	Archangel->destroySelected();
 }
 
-void kf_Archangel_FinishStructure()
+void kf_Archangel_HealSelected()
 {
-	Archangel->finishStructure();
+	Archangel->healSelected();
 }

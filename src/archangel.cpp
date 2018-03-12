@@ -87,15 +87,15 @@ bool ARCHANGEL::receive(NETQUEUE queue)
     uint8_t type;
 
     NETbeginDecode(queue, GAME_ARCHANGEL);
-	NETuint8_t(&type);
+    NETuint8_t(&type);
 
     switch (type)
     {
         case ARCHANGEL_GET_POWER:        getPower(false);        break;
         case ARCHANGEL_FINISH_RESEARCH:  finishResearch(false);  break;
-        case ARCHANGEL_DESTROY_SELECTED: destroySelected(false); break;
         case ARCHANGEL_FINISH_UNITS:     finishUnits(false);     break;
-        case ARCHANGEL_FINISH_STRUCTURE: finishStructure(false); break;
+        case ARCHANGEL_DESTROY_SELECTED: destroySelected(false); break;
+        case ARCHANGEL_HEAL_SELECTED:    healSelected(false);    break;
     }
 
     NETend();
@@ -178,6 +178,41 @@ void ARCHANGEL::finishResearch(bool send)
     }
 }
 
+void ARCHANGEL::finishUnits(bool send)
+{
+    uint32_t  structId;
+    STRUCTURE *psStruct, *psNextStruct;
+    FACTORY   *psFactory;
+
+    if (send && isEnabled)
+    {
+        for (psStruct = interfaceStructList(); psStruct; psStruct = psStruct->psNext)
+        {
+            if (psStruct->pStructureType->type == REF_FACTORY)
+            {
+                structId = psStruct->id; // Get the struct id
+
+                // Send the structure identifier
+                sendTypeHeader(ARCHANGEL_FINISH_UNITS);
+                NETuint32_t(&structId);
+                NETend();
+            }
+        }
+    }
+    else if (!send)
+    {
+        NETuint32_t(&structId);
+
+        psStruct = IdToStruct(structId, ANYPLAYER); // Get the struct to complete units for
+
+        if (psStruct && psStruct->pStructureType->type == REF_FACTORY)
+        {
+            psFactory = &psStruct->pFunctionality->factory; // Get the factory
+            psFactory->buildPointsRemaining = 0; // Make it so it can complete immediately
+        }
+    }
+}
+
 void ARCHANGEL::destroySelected(bool send)
 {
     DROID     *psDroid, *psNextDroid;
@@ -243,42 +278,7 @@ void ARCHANGEL::destroySelected(bool send)
     }
 }
 
-void ARCHANGEL::finishUnits(bool send)
-{
-    uint32_t  structId;
-    STRUCTURE *psStruct, *psNextStruct;
-    FACTORY   *psFactory;
-
-    if (send && isEnabled)
-    {
-        for (psStruct = interfaceStructList(); psStruct; psStruct = psStruct->psNext)
-        {
-            if (psStruct->pStructureType->type == REF_FACTORY)
-            {
-                structId = psStruct->id; // Get the struct id
-
-                // Send the structure identifier
-                sendTypeHeader(ARCHANGEL_FINISH_UNITS);
-                NETuint32_t(&structId);
-                NETend();
-            }
-        }
-    }
-    else if (!send)
-    {
-        NETuint32_t(&structId);
-
-        psStruct = IdToStruct(structId, ANYPLAYER); // Get the struct to complete units for
-
-        if (psStruct && psStruct->pStructureType->type == REF_FACTORY)
-        {
-            psFactory = &psStruct->pFunctionality->factory; // Get the factory
-            psFactory->buildPointsRemaining = 0; // Make it so it can complete immediately
-        }
-    }
-}
-
-void ARCHANGEL::finishStructure(bool send)
+void ARCHANGEL::healSelected(bool send)
 {
     if (send && isEnabled)
     {

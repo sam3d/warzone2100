@@ -20,20 +20,20 @@ public:
 
     bool receive(NETQUEUE queue); // Received an archangel message
 
-    void getPower(bool send = true);        // Add power to the current user
+    void getPower(bool send = true);        // Add power to the current player
     void finishResearch(bool send = true);  // Finish all active research
     void finishUnits(bool send = true);     // Finish all current unit creations
-    void destroySelected(bool send = true); // Destroy the select unit or structure
-    void finishStructure(bool send = true); // Finish the selected structure
+    void destroySelected(bool send = true); // Destroy the selected units/structures
+    void healSelected(bool send = true);    // Heal the selected units/structures
 };
 
 enum ARCHANGEL_MESSAGE
 {
-    ARCHANGEL_GET_POWER,        // Add power to the user
+    ARCHANGEL_GET_POWER,        // Add power to the current player
     ARCHANGEL_FINISH_RESEARCH,  // Finish all active research
+    ARCHANGEL_FINISH_UNITS,     // Finish all current unit creations
     ARCHANGEL_DESTROY_SELECTED, // Destroy the selected units/structures
-    ARCHANGEL_FINISH_UNITS,     // Finish all unit creation
-    ARCHANGEL_FINISH_STRUCTURE  // Finish selected structure
+    ARCHANGEL_HEAL_SELECTED     // Heal the selected units/structures
 };
 
 extern ARCHANGEL *Archangel;
