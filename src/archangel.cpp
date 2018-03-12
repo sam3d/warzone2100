@@ -138,7 +138,14 @@ void ARCHANGEL::finishResearch(bool send)
         return;
     }
 
-    // sendType(ARCHANGEL_FINISH_RESEARCH);
+    if (send)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 void ARCHANGEL::destroySelected(bool send)
@@ -148,7 +155,14 @@ void ARCHANGEL::destroySelected(bool send)
         return;
     }
 
-    // sendType(ARCHANGEL_DESTROY_SELECTED);
+    if (send)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 void ARCHANGEL::finishUnits(bool send)
@@ -158,7 +172,14 @@ void ARCHANGEL::finishUnits(bool send)
         return;
     }
 
-    // sendType(ARCHANGEL_FINISH_UNITS);
+    if (send)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 void ARCHANGEL::finishStructure(bool send)
@@ -168,7 +189,14 @@ void ARCHANGEL::finishStructure(bool send)
         return;
     }
 
-    // sendType(ARCHANGEL_FINISH_STRUCTURE);
+    if (send)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 ARCHANGEL *Archangel = new ARCHANGEL();
