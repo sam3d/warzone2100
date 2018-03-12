@@ -74,7 +74,7 @@ bool ARCHANGEL::parseCommand(const char *msg)
 	return (isEnableRequest || isDisableRequest);
 }
 
-void sendType(ARCHANGEL_MESSAGE _type)
+void sendTypeHeader(ARCHANGEL_MESSAGE _type)
 {
     uint8_t type = _type; // Cast enum to uint8 so we can send it
 
@@ -99,30 +99,27 @@ bool ARCHANGEL::receive(NETQUEUE queue)
     }
 
     NETend();
+
     return true;
 }
 
 void ARCHANGEL::getPower(bool send)
 {
-    if (!isEnabled)
-    {
-        return;
-    }
-
-    uint8_t player;
+    uint8_t  player;
     uint32_t amount;
 
-    if (send)
+    if (send && isEnabled)
     {
         player = selectedPlayer;
         amount = 1000;
 
-        sendType(ARCHANGEL_GET_POWER);
+        // Send the power information
+        sendTypeHeader(ARCHANGEL_GET_POWER);
         NETuint8_t(&player);
         NETuint32_t(&amount);
     	NETend();
     }
-    else
+    else if (!send)
     {
         NETuint8_t(&player);
         NETuint32_t(&amount);
@@ -133,33 +130,61 @@ void ARCHANGEL::getPower(bool send)
 
 void ARCHANGEL::finishResearch(bool send)
 {
-    if (!isEnabled)
+    uint8_t         player;
+    uint32_t        index;
+    int             i;
+	PLAYER_RESEARCH *pPlayerRes;
+    STRUCTURE       *psCurr;
+
+    if (send && isEnabled)
     {
-        return;
+        player = selectedPlayer;
+
+        for (psCurr = interfaceStructList(); psCurr; psCurr = psCurr->psNext)
+    	{
+    		if (psCurr->pStructureType->type == REF_RESEARCH)
+    		{
+    			BASE_STATS *pSubject = nullptr;
+
+                // Find out what we're researching here
+    			pSubject = ((RESEARCH_FACILITY *)psCurr->pFunctionality)->psSubject;
+    			if (pSubject)
+    			{
+    				index = ((RESEARCH *)pSubject)->index; // Get the index of the research item
+
+                    // Send the research information
+                    sendTypeHeader(ARCHANGEL_FINISH_RESEARCH);
+                    NETuint8_t(&player);
+                	NETuint32_t(&index);
+                    NETend();
+
+    				intResearchFinished(psCurr); // Update the user interface
+    			}
+    		}
+    	}
     }
-
-    if (send)
+    else if (!send)
     {
+        NETuint8_t(&player);
+        NETuint32_t(&index);
 
-    }
-    else
-    {
+    	pPlayerRes = &asPlayerResList[player][index];
 
+    	if (!IsResearchCompleted(pPlayerRes))
+    	{
+    		MakeResearchCompleted(pPlayerRes);
+    		researchResult(index, player, false, nullptr, true);
+    	}
     }
 }
 
 void ARCHANGEL::destroySelected(bool send)
 {
-    if (!isEnabled)
-    {
-        return;
-    }
-
-    if (send)
+    if (send && isEnabled)
     {
 
     }
-    else
+    else if (!send)
     {
 
     }
@@ -167,16 +192,11 @@ void ARCHANGEL::destroySelected(bool send)
 
 void ARCHANGEL::finishUnits(bool send)
 {
-    if (!isEnabled)
-    {
-        return;
-    }
-
-    if (send)
+    if (send && isEnabled)
     {
 
     }
-    else
+    else if (!send)
     {
 
     }
@@ -184,16 +204,11 @@ void ARCHANGEL::finishUnits(bool send)
 
 void ARCHANGEL::finishStructure(bool send)
 {
-    if (!isEnabled)
-    {
-        return;
-    }
-
-    if (send)
+    if (send && isEnabled)
     {
 
     }
-    else
+    else if (!send)
     {
 
     }
