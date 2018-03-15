@@ -232,6 +232,15 @@ static KeyMapSaveEntry const keyMapSaveTable[] =
 	{kf_SelectAllTrucks, "SelectAllTrucks"},
 	{kf_SetDroidOrderStop, "SetDroidOrderStop"},
 	{kf_SelectAllArmedVTOLs, "SelectAllArmedVTOLs"},
+	{kf_Archangel_ToggleGod, "Archangel_ToggleGod"},
+	{kf_Archangel_GetPower, "Archangel_GetPower"},
+	{kf_Archangel_FinishResearch, "Archangel_FinishResearch"},
+	{kf_Archangel_FinishUnits, "Archangel_FinishUnits"},
+	{kf_Archangel_DestroySelected, "Archangel_DestroySelected"},
+	{kf_Archangel_HealSelected, "Archangel_HealSelected"},
+	{kf_Archangel_HealAll, "Archangel_HealAll"},
+	{kf_Archangel_HealAllDroids, "Archangel_HealAllDroids"},
+	{kf_Archangel_HealAllStructs, "Archangel_HealAllStructs"}
 };
 
 KeyMapSaveEntry const *keymapEntryByFunction(void (*function)())
@@ -457,6 +466,19 @@ void keyInitMappings(bool bForceDefaults)
 	keyAddMapping(KEYMAP__DEBUG, KEY_LCTRL,  KEY_X, KEYMAP_PRESSED, kf_FinishResearch,    N_("Complete current research"));
 	keyAddMapping(KEYMAP__DEBUG, KEY_LSHIFT, KEY_W, KEYMAP_PRESSED, kf_RevealMapAtPos,    N_("Reveal map at mouse position"));
 	keyAddMapping(KEYMAP__DEBUG, KEY_LCTRL,  KEY_L, KEYMAP_PRESSED, kf_TraceObject,       N_("Trace a game object"));
+
+	// Cheat key maps
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_G, KEYMAP_PRESSED, kf_Archangel_ToggleGod, N_("Toggle god"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_P, KEYMAP_PRESSED, kf_Archangel_GetPower, N_("Get power"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_R, KEYMAP_PRESSED, kf_Archangel_FinishResearch, N_("Finish research"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_U, KEYMAP_PRESSED, kf_Archangel_FinishUnits, N_("Finish units"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_D, KEYMAP_PRESSED, kf_Archangel_DestroySelected, N_("Destroy selected"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_X, KEYMAP_PRESSED, kf_Archangel_HealSelected, N_("Heal selected"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_B, KEYMAP_PRESSED, kf_Archangel_HealAll, N_("Heal all"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_V, KEYMAP_PRESSED, kf_Archangel_HealAllDroids, N_("Heal all droids"));
+	keyAddMapping(KEYMAP___HIDE, KEY_LALT, KEY_C, KEYMAP_PRESSED, kf_Archangel_HealAllStructs, N_("Heal all structs"));
+
+
 	saveKeyMap();	// save out the default key mappings.
 }
 

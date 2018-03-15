@@ -74,6 +74,8 @@
 #include "keymap.h"
 #include "cheat.h"
 
+#include "archangel.h"
+
 // ////////////////////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////
 // globals.
@@ -736,6 +738,9 @@ bool recvMessage()
 				break;
 			case GAME_DEBUG_FINISH_RESEARCH:
 				recvResearch(queue);
+				break;
+			case GAME_ARCHANGEL:
+				Archangel->receive(queue);
 				break;
 			default:
 				processedMessage1 = false;

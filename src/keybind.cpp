@@ -83,6 +83,8 @@
 #include "qtscript.h"
 #include "multigifts.h"
 
+#include "archangel.h"
+
 /*
 	KeyBind.c
 	Holds all the functions that can be mapped to a key.
@@ -2753,4 +2755,61 @@ void kf_BuildNextPage()
 	}
 
 	audio_PlayTrack(ID_SOUND_BUTTON_CLICK_5);
+}
+
+void kf_Archangel_ToggleGod()
+{
+	Archangel->toggleGod();
+}
+
+void kf_Archangel_GetPower()
+{
+	Archangel->getPower();
+}
+
+void kf_Archangel_FinishResearch()
+{
+	Archangel->finishResearch();
+}
+
+void kf_Archangel_FinishUnits()
+{
+	Archangel->finishUnits();
+}
+
+void kf_Archangel_DestroySelected()
+{
+	Archangel->destroySelected();
+}
+
+void kf_Archangel_HealSelected()
+{
+	Archangel->healSelected();
+}
+
+void kf_Archangel_HealAll()
+{
+	bool send = true;
+	bool allDroids = true;
+	bool allStructs = true;
+
+	Archangel->healSelected(send, allDroids, allStructs);
+}
+
+void kf_Archangel_HealAllDroids()
+{
+	bool send = true;
+	bool allDroids = true;
+	bool allStructs = false;
+
+	Archangel->healSelected(send, allDroids, allStructs);
+}
+
+void kf_Archangel_HealAllStructs()
+{
+	bool send = true;
+	bool allDroids = false;
+	bool allStructs = true;
+
+	Archangel->healSelected(send, allDroids, allStructs);
 }

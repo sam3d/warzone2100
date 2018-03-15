@@ -270,4 +270,14 @@ void kf_AutoGame();
 
 void kf_PerformanceSample();
 
+void kf_Archangel_ToggleGod();       // Toggle god mode
+void kf_Archangel_GetPower();        // Get 1000 power
+void kf_Archangel_FinishResearch();  // Finish all research
+void kf_Archangel_FinishUnits();     // Finish construction of all droids
+void kf_Archangel_DestroySelected(); // Destroy selected droid/struct
+void kf_Archangel_HealSelected();    // Heal selected droid/struct
+void kf_Archangel_HealAll();         // Heal all droids and structs
+void kf_Archangel_HealAllDroids();   // Heal all droids
+void kf_Archangel_HealAllStructs();  // Heal all structs
+
 #endif // __INCLUDED_SRC_KEYBIND_H__

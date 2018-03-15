@@ -582,6 +582,7 @@
 		43F4DA3616FD0B3D00C566E3 /* scriptvals_lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43F4DA3216FD0B3D00C566E3 /* scriptvals_lexer.cpp */; };
 		43F4DA3716FD0B3D00C566E3 /* scriptvals_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43F4DA3316FD0B3D00C566E3 /* scriptvals_parser.cpp */; };
 		647D9C571039289A006D37CF /* challenge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 647D9C551039289A006D37CF /* challenge.cpp */; };
+		6672C4642053065700E15DB0 /* archangel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6672C4582053065600E15DB0 /* archangel.cpp */; };
 		9742E5730DF9975E000A5D41 /* lexer_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9742E5710DF9975E000A5D41 /* lexer_input.cpp */; };
 		9749642C0F5ABBE100A38899 /* stdio_ext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 974964280F5ABBE100A38899 /* stdio_ext.cpp */; };
 		974964330F5ABC3F00A38899 /* eventsave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9749642F0F5ABC3F00A38899 /* eventsave.cpp */; };
@@ -2099,6 +2100,8 @@
 		43F4DA3416FD0B3D00C566E3 /* scriptvals_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scriptvals_parser.h; path = ../src/scriptvals_parser.h; sourceTree = SOURCE_ROOT; };
 		647D9C551039289A006D37CF /* challenge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = challenge.cpp; path = ../src/challenge.cpp; sourceTree = SOURCE_ROOT; };
 		647D9C561039289A006D37CF /* challenge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = challenge.h; path = ../src/challenge.h; sourceTree = SOURCE_ROOT; };
+		6672C4582053065600E15DB0 /* archangel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = archangel.cpp; path = ../src/archangel.cpp; sourceTree = "<group>"; };
+		6672C4632053065700E15DB0 /* archangel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = archangel.h; path = ../src/archangel.h; sourceTree = "<group>"; };
 		9742E5710DF9975E000A5D41 /* lexer_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lexer_input.cpp; path = ../lib/framework/lexer_input.cpp; sourceTree = SOURCE_ROOT; };
 		9742E5720DF9975E000A5D41 /* lexer_input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lexer_input.h; path = ../lib/framework/lexer_input.h; sourceTree = SOURCE_ROOT; };
 		9749641E0F5ABB9E00A38899 /* stringdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringdef.h; path = ../src/stringdef.h; sourceTree = SOURCE_ROOT; };
@@ -2782,6 +2785,8 @@
 		0246A1970BD3CCC3004D1C70 /* Warzone */ = {
 			isa = PBXGroup;
 			children = (
+				6672C4582053065600E15DB0 /* archangel.cpp */,
+				6672C4632053065700E15DB0 /* archangel.h */,
 				BC32B07D1F3D49590046142A /* modding.cpp */,
 				43F4DA3116FD0B3D00C566E3 /* level_lexer.cpp */,
 				43F4DA3216FD0B3D00C566E3 /* scriptvals_lexer.cpp */,
@@ -5652,6 +5657,7 @@
 				22E244D70E65361800EC2B3E /* baseobject.cpp in Sources */,
 				024480240C5E4BEE00E1A641 /* utf.cpp in Sources */,
 				976AE8280EA0B59A00F2473F /* timer.cpp in Sources */,
+				6672C4642053065700E15DB0 /* archangel.cpp in Sources */,
 				974EDB380EDC818D00A25352 /* terrain.cpp in Sources */,
 				9749642C0F5ABBE100A38899 /* stdio_ext.cpp in Sources */,
 				974964330F5ABC3F00A38899 /* eventsave.cpp in Sources */,

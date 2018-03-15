@@ -252,6 +252,7 @@ struct STRUCTURE : public BASE_OBJECT
 	STRUCTURE(uint32_t id, unsigned player);
 	~STRUCTURE();
 
+	bool                archangelHeal = false;      // Whether or not Archangel is healing this structure
 	STRUCTURE_STATS     *pStructureType;            /* pointer to the structure stats for this type of building */
 	STRUCT_STATES       status;                     /* defines whether the structure is being built, doing nothing or performing a function */
 	uint32_t            currentBuildPts;            /* the build points currently assigned to this structure */
