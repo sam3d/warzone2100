@@ -115,6 +115,7 @@ enum MESSAGE_TYPES
 	GAME_DEBUG_REMOVE_FEATURE,      ///< Remove feature.
 	GAME_DEBUG_FINISH_RESEARCH,     ///< Research has been completed.
 	// End of debug messages.
+	GAME_ARCHANGEL,                 ///< Received an archangel message
 	GAME_MAX_TYPE                   ///< Maximum+1 valid GAME_ type, *MUST* be last.
 };
 

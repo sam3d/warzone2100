@@ -75,6 +75,8 @@
 #include "template.h"
 #include "qtscript.h"
 
+#include "archangel.h"
+
 #define DEFAULT_RECOIL_TIME	(GAME_TICKS_PER_SEC/4)
 #define	DROID_DAMAGE_SPREAD	(16 - rand()%32)
 #define	DROID_REPAIR_SPREAD	(20 - rand()%40)
@@ -671,6 +673,15 @@ void _syncDebugDroid(const char *function, DROID const *psDroid, char ch)
 	_syncDebugIntList(function, "%c droid%d = p%d;pos(%d,%d,%d),rot(%d,%d,%d),order%d(%d,%d)^%d,action%d,secondaryOrder%X,body%d,sMove(status%d,speed%d,moveDir%d,path%d/%d,src(%d,%d),target(%d,%d),destination(%d,%d),bump(%d,%d,%d,%d,(%d,%d),%d)),exp%u", list, ARRAY_SIZE(list));
 }
 
+static void droidAddWeldSound(Vector3i iVecEffect)
+{
+	SDWORD		iAudioID;
+
+	iAudioID = ID_SOUND_CONSTRUCTION_1 + (rand() % 4);
+
+	audio_PlayStaticTrack(iVecEffect.x, iVecEffect.z, iAudioID);
+}
+
 /* The main update routine for all droids */
 void droidUpdate(DROID *psDroid)
 {
@@ -797,6 +808,31 @@ void droidUpdate(DROID *psDroid)
 	if (!isVtolDroid(psDroid) && psDroid->body < psDroid->originalBody && psDroid->asBits[COMP_REPAIRUNIT] != 0 && selfRepairEnabled(psDroid->player))
 	{
 		droidUpdateDroidSelfRepair(psDroid);
+	}
+
+	if (psDroid->archangelHeal)
+	{
+		int healTicks = Archangel->healTicks; // Number of ticks to heal
+		int healAmount = psDroid->body / healTicks; // Heal speed
+
+		if (psDroid->body < psDroid->originalBody)
+		{
+			psDroid->body += healAmount;
+		}
+		else
+		{
+			// Heal must be complete, disable
+			psDroid->archangelHeal = false;
+		}
+
+		// Add repair effects
+		if ((ONEINFIVE) && (psDroid->visible[selectedPlayer]))
+		{
+			Vector3i iVecEffect = (psDroid->pos + Vector3i(DROID_REPAIR_SPREAD, DROID_REPAIR_SPREAD, rand() % 8)).xzy;
+			effectGiveAuxVar(90 + rand() % 20);
+			addEffect(&iVecEffect, EFFECT_EXPLOSION, EXPLOSION_TYPE_LASER, false, nullptr, 0, gameTime - deltaGameTime + 1 + rand() % deltaGameTime);
+			droidAddWeldSound(iVecEffect);
+		}
 	}
 
 	/* Update the fire damage data */
@@ -1001,15 +1037,6 @@ DroidStartBuild droidStartBuild(DROID *psDroid)
 
 	objTrace(psDroid->id, "DroidStartBuildSuccess");
 	return DroidStartBuildSuccess;
-}
-
-static void droidAddWeldSound(Vector3i iVecEffect)
-{
-	SDWORD		iAudioID;
-
-	iAudioID = ID_SOUND_CONSTRUCTION_1 + (rand() % 4);
-
-	audio_PlayStaticTrack(iVecEffect.x, iVecEffect.z, iAudioID);
 }
 
 static void addConstructorEffect(STRUCTURE *psStruct)

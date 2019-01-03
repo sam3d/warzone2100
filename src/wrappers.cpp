@@ -44,6 +44,8 @@
 #include "warzoneconfig.h"
 #include "wrappers.h"
 
+#include "archangel.h"
+
 struct STAR
 {
 	int      xPos;
@@ -126,6 +128,8 @@ TITLECODE titleLoop()
 	pie_SetFogStatus(false);
 	screen_RestartBackDrop();
 	wzShowMouse(true);
+
+	Archangel->disable(); // Ensure Archangel doesn't persist through games
 
 	// When we first init the game, firstcall is true.
 	if (firstcall)
