@@ -102,6 +102,9 @@ if [ -n "${VCPKG_BUILD_TYPE}" ]; then
 	fi
 fi
 
+rm -f ports/freetype/portfile.cmake
+cp -f ../misc/portfile.cmake ports/freetype/
+
 # Download & build WZ macOS dependencies
 vcpkgInstallResult=-1
 vcpkgAttempts=0
